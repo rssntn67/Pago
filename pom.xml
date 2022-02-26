@@ -39,8 +39,6 @@
     <modules>
       <module>model</module>
       <module>dao</module>
-      <module>service</module>
-      <module>ui-admin-app</module>
     </modules>
 
 </project>
