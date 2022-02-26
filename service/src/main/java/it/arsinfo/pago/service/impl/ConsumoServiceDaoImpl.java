@@ -6,10 +6,8 @@ import it.arsinfo.pago.entity.Utenza;
 import it.arsinfo.pago.service.api.ConsumoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -45,7 +43,8 @@ public class ConsumoServiceDaoImpl implements ConsumoService {
 
     @Override
     public Consumo add() {
-        Consumo consumo = new Consumo();
+        Consumo consumo;
+        consumo = new Consumo();
         return consumo;
     }
 

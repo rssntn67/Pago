@@ -15,7 +15,7 @@ public class UserInfoServiceDaoImpl implements UserInfoService {
 
     @Autowired
     private UserInfoDao repository;
-    
+
 	@Override
 	public UserInfo save(UserInfo entity) {
 		UserInfo saved;

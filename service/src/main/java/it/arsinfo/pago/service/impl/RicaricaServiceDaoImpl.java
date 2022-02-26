@@ -4,7 +4,6 @@ import it.arsinfo.pago.dao.RicaricaDao;
 import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.PagoEntity;
 import it.arsinfo.pago.entity.Ricarica;
-import it.arsinfo.pago.entity.Utenza;
 import it.arsinfo.pago.service.api.RicaricaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -50,8 +48,9 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
 
     @Override
     public Ricarica add() {
-        Ricarica consumo = new Ricarica();
-        return consumo;
+        Ricarica ricarica;
+        ricarica = new Ricarica();
+        return ricarica;
     }
 
 	private List<Ricarica> search(
