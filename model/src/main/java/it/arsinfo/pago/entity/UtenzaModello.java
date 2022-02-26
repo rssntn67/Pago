@@ -11,8 +11,8 @@ public class UtenzaModello implements PagoEntity {
         ELETTRICA("Kw"),
         TELEFONICA("min");
 
-        private String unit;
-        private TipoConsumo(String unit) {
+        private final String unit;
+        TipoConsumo(String unit) {
             this.unit=unit;
         }
 
@@ -29,9 +29,6 @@ public class UtenzaModello implements PagoEntity {
     private String nome;
 
     private String descrizione;
-
-    @Column(nullable=false)
-    private boolean active = true;
 
     @Column(nullable=false)
     private BigDecimal costoUnitario=BigDecimal.ZERO;
@@ -63,20 +60,12 @@ public class UtenzaModello implements PagoEntity {
 
     @Override
     public String toString() {
-        return String.format("Pubblicazione[id=%d, Nome='%s', Tipo='%s',CostoUnitario='%.2f']",
+        return String.format("UtenzaModello[id=%d, Nome='%s', Tipo='%s',CostoUnitario='%.2f']",
                              id, nome, tipo, costoUnitario);
     }
 
     public UtenzaModello() {
         super();
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public BigDecimal getCostoUnitario() {
