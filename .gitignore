@@ -9,3 +9,11 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+.idea/
+.settings
+.project
+.classpath
+*.iml
+.DS_Store
+# The following files are generated/updated by vaadin-maven-plugin
+*/node_modules/
