@@ -16,60 +16,68 @@ public interface ArmatoreDao extends JpaRepository<Armatore, Long> {
 	
 	List<Armatore> findByCittaContainingIgnoreCase(String citta);
 
-	List<Armatore> findByImbarcazioneAndCognomeContainingIgnoreCase(String imbarcazione, String cognome);
-	
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCase(String imbarcazione, String nome);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCognomeContainingIgnoreCase(String imbarcazione, String cognome);
+
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCittaContainingIgnoreCase(String imbarcazione,
+																					  String citta);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCapContainingIgnoreCase(String imbarcazione,
+																					String cap);
+
+	List<Armatore> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(String nome, String cognome);
+	List<Armatore> findByNomeContainingIgnoreCaseAndCittaContainingIgnoreCase(String nome, String citta);
 	List<Armatore> findByNomeContainingIgnoreCaseAndCapContainingIgnoreCase(String nome, String cap);
 
-	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCittaContainingIgnoreCase(String denominazione,
-			String citta);
-
-	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCapContainingIgnoreCase(String denominazione,
-			String cap);
+	List<Armatore> findByCognomeContainingIgnoreCaseAndCittaContainingIgnoreCase(String cognome, String citta);
+	List<Armatore> findByCognomeContainingIgnoreCaseAndCapContainingIgnoreCase(String cognome, String cap);
 
 	List<Armatore> findByCittaContainingIgnoreCaseAndCapContainingIgnoreCase(String citta, String cap);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndDenominazioneIgnoreCase(String imbarcazione, String nome,
-			String denominazione);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(String imbarcazione, String nome,
+			String cognome);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndCittaIgnoreCase(String imbarcazione, String nome,
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCittaContainingIgnoreCase(String imbarcazione, String nome,
 			String citta);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndCapIgnoreCase(String imbarcazione, String nome,
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCapContainingIgnoreCase(String imbarcazione, String nome,
 			String cap);
 
-	List<Armatore> findByImbarcazioneAndDenominazioneContainingIgnoreCaseAndCittaIgnoreCase(String imbarcazione,
-			String denominazione, String citta);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCase(String imbarcazione,
+			String cognome, String citta);
 
-	List<Armatore> findByImbarcazioneAndDenominazioneContainingIgnoreCaseAndCapIgnoreCase(String imbarcazione,
-			String denominazione, String cap);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCapContainingIgnoreCase(String imbarcazione,
+			String cognome, String cap);
 
-	List<Armatore> findByImbarcazioneAndCittaContainingIgnoreCaseAndCapIgnoreCase(String imbarcazione, String citta,
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(String imbarcazione, String citta,
 			String cap);
 
-	List<Armatore> findByNomeContainingIgnoreCaseAndDenominazioneContainingIgnoreCaseAndCittaContainingIgnoreCase(
-			String nome, String denominazione, String citta);
+	List<Armatore> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCase(
+			String nome, String cognome, String citta);
 
-	List<Armatore> findByNomeContainingIgnoreCaseAndDenominazioneContainingIgnoreCaseAndCapContainingIgnoreCase(
-			String nome, String denominazione, String cap);
+	List<Armatore> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCapContainingIgnoreCase(
+			String nome, String cognome, String cap);
 
 	List<Armatore> findByNomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(String nome,
 			String citta, String cap);
 
-	List<Armatore> findByDenominazioneContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
+	List<Armatore> findByCognomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
 			String denominazione, String citta, String cap);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndDenominazioneContainingIgnoreCaseAndCapIgnoreCase(
-			String imbarcazione, String nome, String denominazione, String cap);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCase(
+			String imbarcazione, String nome, String cognome, String citta);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapIgnoreCase(
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCapContainingIgnoreCase(
+			String imbarcazione, String nome, String cognome, String cap);
+
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
 			String imbarcazione, String nome, String citta, String cap);
 
-	List<Armatore> findByImbarcazioneAndDenominazioneContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapIgnoreCase(
-			String imbarcazione, String denominazione, String citta, String cap);
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
+			String imbarcazione, String cognome, String citta, String cap);
 
-	List<Armatore> findByNomeContainingIgnoreCaseAndDenominazioneContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
-			String nome, String denominazione, String citta, String cap);
+	List<Armatore> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
+			String nome, String cognome, String citta, String cap);
 
-	List<Armatore> findByImbarcazioneAndNomeContainingIgnoreCaseAndDenominazioneContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapIgnoreCase(
+	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
 			String imbarcazione, String nome, String denominazione, String citta, String cap);
 }
