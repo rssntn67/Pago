@@ -178,7 +178,7 @@ public class Armatore implements PagoEntity {
 
     @Override
     public String toString() {
-        return String.format("Anagrafica[id=%d, %s %s,credito='%.2f']",
+        return String.format("Armatore[id=%d, %s %s,credito='%.2f']",
                              id, nome, imbarcazione,creditoResiduo);
     }
 
