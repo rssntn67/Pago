@@ -24,6 +24,7 @@ public class Armatore implements PagoEntity {
     private Long id;
 
     @OneToOne(fetch=FetchType.LAZY)
+    @MapsId
     private Utenza utenza;
     @Column(nullable=false)
     private String nome;
