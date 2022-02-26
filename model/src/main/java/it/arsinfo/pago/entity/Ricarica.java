@@ -19,8 +19,7 @@ public class Ricarica implements PagoEntity {
     @Column(nullable=false)
     private BigDecimal importo = BigDecimal.ZERO;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Column(nullable=false)
+    @ManyToOne(optional = false,fetch=FetchType.EAGER)
     private Armatore committente;
 
     public Ricarica() {
@@ -29,9 +28,6 @@ public class Ricarica implements PagoEntity {
 
     public Long getId() {
         return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
     }
 
     @Override

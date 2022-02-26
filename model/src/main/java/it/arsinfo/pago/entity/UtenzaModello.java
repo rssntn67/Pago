@@ -37,14 +37,6 @@ public class UtenzaModello implements PagoEntity {
     @Column(nullable=false)
     private TipoConsumo tipo=TipoConsumo.ELETTRICA;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable=false)
-    private Anno anno;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable=false)
-    private Mese mese;
-
     public Long getId() {
         return id;
     }
@@ -87,14 +79,6 @@ public class UtenzaModello implements PagoEntity {
         return String.format("'%s'", nome);
     }
 
-    public Anno getAnno() {
-        return anno;
-    }
-
-    public void setAnno(Anno anno) {
-        this.anno = anno;
-    }
-
     public String getDescrizione() {
         return descrizione;
     }
@@ -111,11 +95,4 @@ public class UtenzaModello implements PagoEntity {
         this.tipo = tipo;
     }
 
-    public Mese getMese() {
-        return mese;
-    }
-
-    public void setMese(Mese mese) {
-        this.mese = mese;
-    }
 }
