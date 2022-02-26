@@ -1,8 +1,9 @@
 package it.arsinfo.pago.service.impl;
 
-import it.arsinfo.pago.dao.UtenzaModelloDao;
+import it.arsinfo.pago.dao.UtenzaDao;
+import it.arsinfo.pago.entity.Utenza;
 import it.arsinfo.pago.entity.UtenzaModello;
-import it.arsinfo.pago.service.api.UtenzaModelloService;
+import it.arsinfo.pago.service.api.UtenzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,47 +12,47 @@ import java.util.List;
 
 
 @Service
-public class UtenzaModelloServiceDaoImpl implements UtenzaModelloService {
+public class UtenzaServiceDaoImpl implements UtenzaService {
 
     @Autowired
-    private UtenzaModelloDao repository;
+    private UtenzaDao repository;
 
 	@Override
-	public UtenzaModello save(UtenzaModello entity) {
+	public Utenza save(Utenza entity) {
 		return repository.save(entity);
 	}
 
 	@Override
-	public void delete(UtenzaModello entity) {
+	public void delete(Utenza entity) {
 		repository.delete(entity);
 	}
 
 	@Override
-	public UtenzaModello findById(Long id) {
+	public Utenza findById(Long id) {
 		return repository.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<UtenzaModello> findAll() {
+	public List<Utenza> findAll() {
 		return repository.findAll();
 	}
 
     @Override
-    public List<UtenzaModello> searchByDefault() {
+    public List<Utenza> searchByDefault() {
         return repository.findAll();
     }
 
     @Override
-    public UtenzaModello add() {
-        UtenzaModello modello;
-		modello = new UtenzaModello();
-        return modello;
+    public Utenza add() {
+        Utenza utenza;
+		utenza = new Utenza();
+        return utenza;
     }
 
 
 	@Override
-	public List<UtenzaModello> searchBy(
-            String nome, UtenzaModello.TipoConsumo tipo
+	public List<Utenza> searchBy(
+            String nome, UtenzaModello tipo
      		) {
 	    if (!StringUtils.hasLength(nome) && tipo == null) {
 	        return repository.findAll();
@@ -62,10 +63,10 @@ public class UtenzaModelloServiceDaoImpl implements UtenzaModelloService {
         }
 
 	    if (!StringUtils.hasLength(nome)) {
-	        return repository.findByTipo(tipo);
+	        return repository.findByModello(tipo);
         }
 
-	    return repository.findByNomeStartsWithIgnoreCaseAndTipo(nome,tipo);
+	    return repository.findByNomeStartsWithIgnoreCaseAndModello(nome,tipo);
     }
 
 	

@@ -10,5 +10,6 @@ public interface UtenzaDao extends JpaRepository<Utenza, Long> {
 
 	List<Utenza> findByNomeStartsWithIgnoreCase(String nome);
 	List<Utenza> findByModello(UtenzaModello tipo);
+	List<Utenza> findByNomeStartsWithIgnoreCaseAndModello(String nome,UtenzaModello tipo);
 	List<Utenza> findByActive(boolean isActive);
 }
