@@ -5,53 +5,37 @@ import java.math.BigDecimal;
 
 @Entity
 public class Armatore implements PagoEntity {
-	
+
+    public static String generaIntestazione(Armatore a) {
+        return String.format("%s %s",
+                a.getImbarcazione(),a.getNome());
+    }
+
+    public static String generaCaption(Armatore a) {
+        return String.format("'%s %s %s %s'",
+                a.getImbarcazione(),
+                a.getNome(),
+                a.getCitta(),
+                a.getCap());
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public Utenza getUtenza() {
-        return utenza;
-    }
-
-    public void setUtenza(Utenza utenza) {
-        this.utenza = utenza;
-    }
-
-    @ManyToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY)
     private Utenza utenza;
-
     @Column(nullable=false)
     private String nome;
     @Column(nullable=false)
     private String cognome;
     @Column(nullable=false)
     private String imbarcazione;
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public BigDecimal getCreditoResiduo() {
-        return creditoResiduo;
-    }
-
-    public void setCreditoResiduo(BigDecimal creditoResiduo) {
-        this.creditoResiduo = creditoResiduo;
-    }
-
     @Column(nullable=false)
     private BigDecimal creditoResiduo = BigDecimal.ZERO;
-
     private String indirizzo;
-
     @Enumerated(EnumType.STRING)
     private Provincia provincia = Provincia.ND;
-
     private String cap;
     private String citta;
     @Enumerated(EnumType.STRING)
@@ -71,10 +55,15 @@ public class Armatore implements PagoEntity {
         return id;
     }
 
+    public Utenza getUtenza() {
+        return utenza;
+    }
+
+    public void setUtenza(Utenza utenza) {
+        this.utenza = utenza;
+    }
+
     public String getNome() {
-    	if (nome == null) {
-    		return "";
-    	}
         return nome;
     }
 
@@ -98,10 +87,20 @@ public class Armatore implements PagoEntity {
         this.indirizzo = indirizzo;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Anagrafica[id=%d, %s %s,credito='%.2f']",
-                             id, nome, imbarcazione,creditoResiduo);
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public BigDecimal getCreditoResiduo() {
+        return creditoResiduo;
+    }
+
+    public void setCreditoResiduo(BigDecimal creditoResiduo) {
+        this.creditoResiduo = creditoResiduo;
     }
 
     public String getCap() {
@@ -168,6 +167,20 @@ public class Armatore implements PagoEntity {
         this.piva = piva;
     }
 
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Anagrafica[id=%d, %s %s,credito='%.2f']",
+                             id, nome, imbarcazione,creditoResiduo);
+    }
+
     @Transient
     public String getCaption() {
     	return Armatore.generaCaption(this);
@@ -181,27 +194,6 @@ public class Armatore implements PagoEntity {
     @Transient
     public String getHeader() {
     	return generaIntestazione(this);
-    }
-
-    public Provincia getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(Provincia provincia) {
-        this.provincia = provincia;
-    }
-
-    public static String generaIntestazione(Armatore a) {
-    	return String.format("%s %s",
-        		a.getImbarcazione(),a.getNome());
-    }
-
-    public static String generaCaption(Armatore a) {
-        return String.format("'%s %s %s %s'",
-        		a.getImbarcazione(),
-        		a.getNome(),
-        		a.getCitta(),
-        		a.getCap());
     }
 
 }
