@@ -59,14 +59,14 @@ public class UtenzaServiceDaoImpl implements UtenzaService {
         }
 
 	    if (tipo == null) {
-	        return repository.findByNomeStartsWithIgnoreCase(nome);
+	        return repository.findByIdentificativoStartsWithIgnoreCase(nome);
         }
 
 	    if (!StringUtils.hasLength(nome)) {
 	        return repository.findByModello(tipo);
         }
 
-	    return repository.findByNomeStartsWithIgnoreCaseAndModello(nome,tipo);
+	    return repository.findByIdentificativoStartsWithIgnoreCaseAndModello(nome,tipo);
     }
 
 	

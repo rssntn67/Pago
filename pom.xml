@@ -40,6 +40,7 @@
       <module>model</module>
       <module>dao</module>
       <module>service</module>
+      <module>ui-user-app</module>
     </modules>
 
 </project>

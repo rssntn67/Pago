@@ -3,7 +3,7 @@ package it.arsinfo.pago.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"nome"})})
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"identificativo"})})
 public class Utenza implements PagoEntity {
 
     @Id
@@ -18,8 +18,7 @@ public class Utenza implements PagoEntity {
     @Column(nullable = false)
     private boolean active = true;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @Column(nullable = false)
+    @ManyToOne(optional = false, fetch=FetchType.EAGER)
     private UtenzaModello modello;
 
     public Long getId() {

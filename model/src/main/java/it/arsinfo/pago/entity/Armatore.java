@@ -23,9 +23,6 @@ public class Armatore implements PagoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @MapsId
-    private Utenza utenza;
     @Column(nullable=false)
     private String nome;
     @Column(nullable=false)
@@ -54,14 +51,6 @@ public class Armatore implements PagoEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public Utenza getUtenza() {
-        return utenza;
-    }
-
-    public void setUtenza(Utenza utenza) {
-        this.utenza = utenza;
     }
 
     public String getNome() {
