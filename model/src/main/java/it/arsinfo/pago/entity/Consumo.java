@@ -23,16 +23,48 @@ public class Consumo implements PagoEntity {
     @Column(nullable=false)
     private Mese mese = Mese.getMeseCorrente();
 
+    public Integer getConsumo() {
+        return consumo;
+    }
+
+    public void setConsumo(Integer consumo) {
+        this.consumo = consumo;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public BigDecimal getImporto() {
+        return importo;
+    }
+
+    public void setImporto(BigDecimal importo) {
+        this.importo = importo;
+    }
+
     @Column(nullable=false)
     private Integer consumo = 0;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable=false)
-    private Date from = PagoEntity.getStandardDate(new Date());
+    private Date fromDate = PagoEntity.getStandardDate(new Date());
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable=false)
-    private Date to = PagoEntity.getStandardDate(new Date());
+    private Date toDate = PagoEntity.getStandardDate(new Date());
 
     @Column(nullable=false)
     private BigDecimal importo = BigDecimal.ZERO;
@@ -120,11 +152,8 @@ public class Consumo implements PagoEntity {
             return Anno.valueOf("ANNO"+annomenouno);
 
         }
-            public static Anno getAnnoSuccessivo(Anno anno) {
-                int annopiuuno= anno.getAnno()+1;
-                return Anno.valueOf("ANNO"+annopiuuno);
 
-            }Anno(int anno) {
+        Anno(int anno) {
             this.anno=anno;
         }
 
@@ -169,13 +198,7 @@ public class Consumo implements PagoEntity {
         private final String nomeBreve;
         private final int posizione;
         private final String code;
-
-        public static Mese getMeseSuccessivo(Mese mese) {
-            if (mese == Mese.DICEMBRE)
-                return Mese.GENNAIO;
-            return getByPosizione(mese.getPosizione()+1);
-        }
-
+        
         public static Mese getByPosizione(int posizione) {
                 for (Mese mese: Mese.values()) {
                     if (mese.getPosizione() == posizione) {
