@@ -23,9 +23,7 @@ public class Armatore implements PagoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable=false)
     private String nome;
-    @Column(nullable=false)
     private String cognome;
     @Column(nullable=false)
     private String imbarcazione;
@@ -33,6 +31,7 @@ public class Armatore implements PagoEntity {
     private BigDecimal creditoResiduo = BigDecimal.ZERO;
     private String indirizzo;
     @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
     private Provincia provincia = Provincia.ND;
     private String cap;
     private String citta;

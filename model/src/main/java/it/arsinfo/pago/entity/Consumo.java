@@ -198,7 +198,7 @@ public class Consumo implements PagoEntity {
         private final String nomeBreve;
         private final int posizione;
         private final String code;
-        
+
         public static Mese getByPosizione(int posizione) {
                 for (Mese mese: Mese.values()) {
                     if (mese.getPosizione() == posizione) {

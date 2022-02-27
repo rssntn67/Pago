@@ -40,16 +40,19 @@ public class ArmatoreForm extends EntityForm<Armatore> {
         provincia.setItemLabelGenerator(Armatore.Provincia::getNome);
         paese.setItemLabelGenerator(Armatore.Paese::getNome);
 
-        binder.forField(creditoResiduo).withConverter(new EuroConverter("Errore nella conversione in Euro")).bind(Armatore::getCreditoResiduo,Armatore::setCreditoResiduo);
         binder.forField(nome).bind(Armatore::getNome,Armatore::setNome);
         binder.forField(cognome).bind(Armatore::getCognome,Armatore::setCognome);
-        binder.forField(imbarcazione).bind(Armatore::getImbarcazione,Armatore::setImbarcazione);
-        binder.forField(citta).asRequired().bind(Armatore::getCitta,Armatore::setCitta);
+        binder.forField(imbarcazione).asRequired().bind(Armatore::getImbarcazione,Armatore::setImbarcazione);
+
+        binder.forField(creditoResiduo).withConverter(new EuroConverter("Errore nella conversione in Euro")).bind(Armatore::getCreditoResiduo,Armatore::setCreditoResiduo);
+
+        binder.forField(indirizzo).bind(Armatore::getIndirizzo,Armatore::setIndirizzo);
+        binder.forField(citta).bind(Armatore::getCitta,Armatore::setCitta);
         binder.forField(provincia).asRequired().bind(Armatore::getProvincia,Armatore::setProvincia);
-        binder.forField(cap).asRequired().bind(Armatore::getCap,Armatore::setCap);
-        binder.forField(indirizzo).asRequired().bind(Armatore::getIndirizzo,Armatore::setIndirizzo);
+        binder.forField(cap).bind(Armatore::getCap,Armatore::setCap);
         binder.forField(paese).asRequired().bind(Armatore::getPaese,Armatore::setPaese);
-        binder.forField(email).asRequired()
+
+        binder.forField(email)
                 .withValidator(new EmailValidator("Immettere un indizzo di mail valido"))
                 .bind(Armatore::getEmail,Armatore::setEmail);
         binder.forField(telefono).bind(Armatore::getTelefono,Armatore::setTelefono);
