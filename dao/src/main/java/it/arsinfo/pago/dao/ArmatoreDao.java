@@ -3,6 +3,7 @@ package it.arsinfo.pago.dao;
 import it.arsinfo.pago.entity.Armatore;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ArmatoreDao extends JpaRepository<Armatore, Long> {
@@ -80,4 +81,6 @@ public interface ArmatoreDao extends JpaRepository<Armatore, Long> {
 
 	List<Armatore> findByImbarcazioneContainingIgnoreCaseAndNomeContainingIgnoreCaseAndCognomeContainingIgnoreCaseAndCittaContainingIgnoreCaseAndCapContainingIgnoreCase(
 			String imbarcazione, String nome, String denominazione, String citta, String cap);
+
+	List<Armatore> findByCreditoResiduoGreaterThan(BigDecimal value);
 }

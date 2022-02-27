@@ -19,7 +19,7 @@ public class Utenza implements PagoEntity {
     private boolean active = false;
 
     @ManyToOne(optional = false, fetch=FetchType.EAGER)
-    private UtenzaModello modello;
+    private Modello modello;
 
     @ManyToOne(fetch=FetchType.LAZY)
     private Armatore utente;
@@ -46,11 +46,11 @@ public class Utenza implements PagoEntity {
         this.identificativo = identificativo;
     }
 
-    public UtenzaModello getModello() {
+    public Modello getModello() {
         return modello;
     }
 
-    public void setModello(UtenzaModello modello) {
+    public void setModello(Modello modello) {
         this.modello = modello;
     }
 

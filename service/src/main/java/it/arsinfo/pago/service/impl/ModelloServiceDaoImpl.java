@@ -1,8 +1,8 @@
 package it.arsinfo.pago.service.impl;
 
-import it.arsinfo.pago.dao.UtenzaModelloDao;
-import it.arsinfo.pago.entity.UtenzaModello;
-import it.arsinfo.pago.service.api.UtenzaModelloService;
+import it.arsinfo.pago.dao.ModelloDao;
+import it.arsinfo.pago.entity.Modello;
+import it.arsinfo.pago.service.api.ModelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,47 +11,47 @@ import java.util.List;
 
 
 @Service
-public class UtenzaModelloServiceDaoImpl implements UtenzaModelloService {
+public class ModelloServiceDaoImpl implements ModelloService {
 
     @Autowired
-    private UtenzaModelloDao repository;
+    private ModelloDao repository;
 
 	@Override
-	public UtenzaModello save(UtenzaModello entity) {
+	public Modello save(Modello entity) {
 		return repository.save(entity);
 	}
 
 	@Override
-	public void delete(UtenzaModello entity) {
+	public void delete(Modello entity) {
 		repository.delete(entity);
 	}
 
 	@Override
-	public UtenzaModello findById(Long id) {
+	public Modello findById(Long id) {
 		return repository.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<UtenzaModello> findAll() {
+	public List<Modello> findAll() {
 		return repository.findAll();
 	}
 
     @Override
-    public List<UtenzaModello> searchByDefault() {
+    public List<Modello> searchByDefault() {
         return repository.findAll();
     }
 
     @Override
-    public UtenzaModello add() {
-        UtenzaModello modello;
-		modello = new UtenzaModello();
+    public Modello add() {
+        Modello modello;
+		modello = new Modello();
         return modello;
     }
 
 
 	@Override
-	public List<UtenzaModello> searchBy(
-            String nome, UtenzaModello.TipoConsumo tipo
+	public List<Modello> searchBy(
+            String nome, Modello.TipoConsumo tipo
      		) {
 	    if (!StringUtils.hasLength(nome) && tipo == null) {
 	        return repository.findAll();

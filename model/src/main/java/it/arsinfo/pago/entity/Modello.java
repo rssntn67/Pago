@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"nome"})})
-public class UtenzaModello implements PagoEntity {
+public class Modello implements PagoEntity {
 
     public enum TipoConsumo {
         ELETTRICA("Kw"),
@@ -52,11 +52,11 @@ public class UtenzaModello implements PagoEntity {
 
     @Override
     public String toString() {
-        return String.format("UtenzaModello[id=%d, Nome='%s', Tipo='%s',CostoUnitario='%.2f']",
-                             id, nome, tipo, costoUnitario);
+        return String.format("%s, '%.2f %s'",
+                             nome, costoUnitario,tipo.getUnit() );
     }
 
-    public UtenzaModello() {
+    public Modello() {
         super();
     }
 

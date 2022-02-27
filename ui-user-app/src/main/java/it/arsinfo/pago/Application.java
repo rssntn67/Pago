@@ -2,9 +2,9 @@ package it.arsinfo.pago;
 
 import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.Utenza;
-import it.arsinfo.pago.entity.UtenzaModello;
+import it.arsinfo.pago.entity.Modello;
 import it.arsinfo.pago.service.api.ArmatoreService;
-import it.arsinfo.pago.service.api.UtenzaModelloService;
+import it.arsinfo.pago.service.api.ModelloService;
 import it.arsinfo.pago.service.api.UtenzaService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,7 +38,7 @@ public class Application extends SpringBootServletInitializer {
     @Transactional
     public CommandLineRunner loadData(
             ArmatoreService armatoreService,
-            UtenzaModelloService utenzaModelloService,
+            ModelloService utenzaModelloService,
                     UtenzaService utenzaService) {
         return (args) -> {
 
@@ -51,10 +51,11 @@ public class Application extends SpringBootServletInitializer {
             Armatore b = armatoreService.add();
             b.setImbarcazione("Appio");
             b.setNome("Nicola");
-            a.setCognome("Iadi");
+            b.setCognome("Iadi");
+            b.setCreditoResiduo(new BigDecimal("10"));
             armatoreService.save(b);
 
-            UtenzaModello modello = utenzaModelloService.add();
+            Modello modello = utenzaModelloService.add();
             modello.setNome("Standard");
             modello.setCostoUnitario(new BigDecimal("0.23"));
 

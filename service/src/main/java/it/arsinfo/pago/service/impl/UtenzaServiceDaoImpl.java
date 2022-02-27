@@ -1,13 +1,17 @@
 package it.arsinfo.pago.service.impl;
 
+import it.arsinfo.pago.dao.ArmatoreDao;
+import it.arsinfo.pago.dao.ModelloDao;
 import it.arsinfo.pago.dao.UtenzaDao;
+import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.Utenza;
-import it.arsinfo.pago.entity.UtenzaModello;
+import it.arsinfo.pago.entity.Modello;
 import it.arsinfo.pago.service.api.UtenzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -16,6 +20,12 @@ public class UtenzaServiceDaoImpl implements UtenzaService {
 
     @Autowired
     private UtenzaDao repository;
+
+	@Autowired
+	private ArmatoreDao armatoreDao;
+
+	@Autowired
+	private ModelloDao modelloDao;
 
 	@Override
 	public Utenza save(Utenza entity) {
@@ -52,7 +62,7 @@ public class UtenzaServiceDaoImpl implements UtenzaService {
 
 	@Override
 	public List<Utenza> searchBy(
-            String nome, UtenzaModello tipo
+            String nome, Modello tipo
      		) {
 	    if (!StringUtils.hasLength(nome) && tipo == null) {
 	        return repository.findAll();
@@ -69,5 +79,15 @@ public class UtenzaServiceDaoImpl implements UtenzaService {
 	    return repository.findByIdentificativoStartsWithIgnoreCaseAndModello(nome,tipo);
     }
 
-	
+	@Override
+	public List<Armatore> findUtenza() {
+		return armatoreDao.findByCreditoResiduoGreaterThan(BigDecimal.ZERO);
+	}
+
+	@Override
+	public List<Modello> findModelli() {
+		return modelloDao.findAll();
+	}
+
+
 }
