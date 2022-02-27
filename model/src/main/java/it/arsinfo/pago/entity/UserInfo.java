@@ -114,8 +114,4 @@ public class UserInfo implements PagoEntity {
 		return "UserInfo [id=" + id + ", username=" + username + ", role=" + role + "]";
 	}
 
-	@Override
-	public String getHeader() {
-		return username + ":" + role;
-	}
 }

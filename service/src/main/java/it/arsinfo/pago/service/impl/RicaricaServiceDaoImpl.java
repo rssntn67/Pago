@@ -2,7 +2,6 @@ package it.arsinfo.pago.service.impl;
 
 import it.arsinfo.pago.dao.RicaricaDao;
 import it.arsinfo.pago.entity.Armatore;
-import it.arsinfo.pago.entity.PagoEntity;
 import it.arsinfo.pago.entity.Ricarica;
 import it.arsinfo.pago.service.api.RicaricaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
     }
 
 	private List<Ricarica> search(
-            String importo, LocalDate dataPagamento, Armatore committente) {
+            String importo, LocalDateTime dataPagamento, Armatore committente) {
 
         if (StringUtils.hasLength(importo)) {
             try {
@@ -70,27 +69,27 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
             return repository.findByCommittente(committente);
         }
         if (!StringUtils.hasLength(importo) &&  committente == null) {
-            return repository.findByDataPagamento(PagoEntity.getStandardDate(dataPagamento));
+            return repository.findByDataPagamentoAfter(dataPagamento);
         }
         if (committente==null && dataPagamento == null) {
             return repository.findByImporto(new BigDecimal(importo));
         }
         if (committente == null ) {
-            return repository.findByImportoAndDataPagamento(new BigDecimal(importo),PagoEntity.getStandardDate(dataPagamento));
+            return repository.findByImportoAndDataPagamentoAfter(new BigDecimal(importo),dataPagamento);
         }
         if (dataPagamento == null) {
             return repository.findByCommittenteAndImporto(committente,new BigDecimal(importo));
         }
         if (!StringUtils.hasLength(importo) ) {
-            return repository.findByCommittenteAndDataPagamento(committente,PagoEntity.getStandardDate(dataPagamento));
+            return repository.findByCommittenteAndDataPagamentoAfter(committente,dataPagamento);
         }
-        return repository.findByCommittenteAndImportoAndDataPagamento(committente,new BigDecimal(importo),PagoEntity.getStandardDate(dataPagamento));
+        return repository.findByCommittenteAndImportoAndDataPagamentoAfter(committente,new BigDecimal(importo),dataPagamento);
 
 	}
 
 	@Override
 	public List<Ricarica> searchBy(
-            String importo, LocalDate dataPagamento, Armatore committente
+            String importo, LocalDateTime dataPagamento, Armatore committente
      		) {
 
         return search(importo,dataPagamento,committente);

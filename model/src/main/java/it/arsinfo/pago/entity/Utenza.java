@@ -16,12 +16,12 @@ public class Utenza implements PagoEntity {
     private String descrizione;
 
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean active = false;
 
     @ManyToOne(optional = false, fetch=FetchType.EAGER)
     private UtenzaModello modello;
 
-    @ManyToOne(optional = true, fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     private Armatore utente;
 
     public Long getId() {

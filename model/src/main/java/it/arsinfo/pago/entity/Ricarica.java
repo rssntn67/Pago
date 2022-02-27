@@ -1,9 +1,10 @@
 package it.arsinfo.pago.entity;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Ricarica implements PagoEntity {
@@ -12,9 +13,9 @@ public class Ricarica implements PagoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Basic
     @Column(nullable=false)
-    private Date dataPagamento = PagoEntity.getStandardDate(new Date());
+    private LocalDateTime dataPagamento =  LocalDateTime.now(ZoneId.of("Europe/Rome"));
 
     @Column(nullable=false)
     private BigDecimal importo = BigDecimal.ZERO;
@@ -32,20 +33,24 @@ public class Ricarica implements PagoEntity {
 
     @Override
     public String toString() {
-        return String.format("Ricarica[id=%d, committente'%s', importo='%.2f']",
-                             id, committente,importo);
+        return String.format("Ricarica[id=%d, %s committente'%s', importo='%.2f']",
+                             id, dataPagamento.format(DateTimeFormatter.ISO_DATE_TIME),committente,importo);
     }
 
-    @Transient
-    public String getNomeCommittente() {
-    	if (committente != null) {
-    		return committente.getIntestazione();
-    	}
-    	return "";
+    public LocalDateTime getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setDataPagamento(Date dataPagamento) {
-        this.dataPagamento = PagoEntity.getStandardDate(dataPagamento);
+    public BigDecimal getImporto() {
+        return importo;
+    }
+
+    public void setImporto(BigDecimal importo) {
+        this.importo = importo;
+    }
+
+    public void setDataPagamento(LocalDateTime dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
 	public Armatore getCommittente() {
@@ -56,10 +61,4 @@ public class Ricarica implements PagoEntity {
 		this.committente = committente;
 	}
 
-
-	@Override
-	public String getHeader() {
-        return String.format("['%.2f']",
-                importo);
-	}
 }

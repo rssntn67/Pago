@@ -3,8 +3,6 @@ package it.arsinfo.pago;
 import com.vaadin.flow.data.binder.Result;
 import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
-import com.vaadin.flow.data.renderer.NumberRenderer;
-import it.arsinfo.pago.entity.PagoEntity;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -50,4 +48,22 @@ public class EuroConverter extends StringToBigDecimalConverter {
         }
         return format;
     }
+
+    public static NumberFormat getEuroCurrency() {
+        return NumberFormat.getCurrencyInstance(getLocalFromISO("EUR"));
+    }
+
+    public static Locale getLocalFromISO(String iso4217code){
+        Locale toReturn = null;
+        for (Locale locale : NumberFormat.getAvailableLocales()) {
+            String code = NumberFormat.getCurrencyInstance(locale).
+                    getCurrency().getCurrencyCode();
+            if (iso4217code.equals(code)) {
+                toReturn = locale;
+                break;
+            }
+        }
+        return toReturn;
+    }
+
 }

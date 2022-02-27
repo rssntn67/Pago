@@ -1,7 +1,9 @@
 package it.arsinfo.pago;
 
 import it.arsinfo.pago.service.api.ArmatoreService;
+import it.arsinfo.pago.service.api.ConsumoService;
 import it.arsinfo.pago.service.impl.ArmatoreServiceDaoImpl;
+import it.arsinfo.pago.service.impl.ConsumoServiceDaoImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,8 @@ public class UIUserTests {
 
     @Autowired
     private ArmatoreService armatoreService;
+    @Autowired
+    private ConsumoService consumoService;
 
     @BeforeEach
     public void onSetUp() {
@@ -30,6 +34,8 @@ public class UIUserTests {
     public void testConfiguration() {
         assertNotNull(armatoreService);
         assertTrue(armatoreService instanceof ArmatoreServiceDaoImpl);
+        assertNotNull(consumoService);
+        assertTrue(consumoService instanceof ConsumoServiceDaoImpl);
     }
 
 }

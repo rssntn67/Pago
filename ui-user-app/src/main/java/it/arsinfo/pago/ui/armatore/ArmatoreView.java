@@ -1,11 +1,13 @@
 package it.arsinfo.pago.ui.armatore;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import it.arsinfo.pago.EuroConverter;
 import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.PagoEntity;
 import it.arsinfo.pago.service.api.ArmatoreService;
@@ -15,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-@Route(value="pago/armatore", layout = MainLayout.class)
+@Route(value="pago/armatori", layout = MainLayout.class)
 @PageTitle("Armatori | Pago App")
 public class ArmatoreView extends EntityView<Armatore> {
 
@@ -27,7 +29,7 @@ public class ArmatoreView extends EntityView<Armatore> {
     public void init() {
         super.init(new Grid<>(Armatore.class), new ArmatoreForm(new BeanValidationBinder<>(Armatore.class)));
         configureGrid("imbarcazione", "nome", "cognome");
-        getGrid().addColumn(new NumberRenderer<>(Armatore::getCreditoResiduo, PagoEntity.getEuroCurrency())).setHeader("Credito Residuo");
+        getGrid().addColumn(new NumberRenderer<>(Armatore::getCreditoResiduo, EuroConverter.getEuroCurrency())).setHeader("Credito Residuo");
         getForm().addListener(ArmatoreForm.SaveEvent.class, e -> {
             try {
                 save(e.getEntity());

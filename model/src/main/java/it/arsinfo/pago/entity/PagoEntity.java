@@ -17,53 +17,6 @@ public interface PagoEntity {
 
     Logger log = LoggerFactory.getLogger(PagoEntity.class);
 
-    DateFormat formatter = new SimpleDateFormat("yyMMddH");
-    DateFormat unformatter = new SimpleDateFormat("yyMMdd");
-
-    static Date getStandardDate(LocalDate localDate) {
-        return getStandardDate(Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
-    }
-
-    static Date getStandardDate(Date date) {
-        return getStandardDate(unformatter.format(date));
-    }
-
-    static Date getStandardDate(String yyMMdd) {
-        try {
-            return formatter.parse(yyMMdd+"8");
-        } catch (ParseException e) {
-            log.error("getStandardDate: {}", e.getMessage());
-        }
-        return null;
-    }
-
     Long getId();
-    
-    @Transient
-    String getHeader();
-
-    static String decodeForGrid(boolean status) {
-        if (status) {
-            return "si";
-        }
-        return "no";
-    }
-
-    static NumberFormat getEuroCurrency() {
-        return NumberFormat.getCurrencyInstance(getLocalFromISO("EUR"));
-    }
-
-    static Locale getLocalFromISO(String iso4217code){
-        Locale toReturn = null;
-        for (Locale locale : NumberFormat.getAvailableLocales()) {
-            String code = NumberFormat.getCurrencyInstance(locale).
-                    getCurrency().getCurrencyCode();
-            if (iso4217code.equals(code)) {
-                toReturn = locale;
-                break;
-            }
-        }
-        return toReturn;
-    }
 
 }

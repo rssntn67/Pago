@@ -6,6 +6,6 @@ import it.arsinfo.pago.entity.Consumo;
 import it.arsinfo.pago.entity.Utenza;
 
 public interface ConsumoService extends PagoServiceBase<Consumo> {
-	List<Consumo> searchBy(Utenza p, Consumo.Anno anno, Consumo.Mese mese);
+	List<Consumo> searchBy(Utenza p);
 
 }

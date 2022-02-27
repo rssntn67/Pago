@@ -49,42 +49,19 @@ public class ConsumoServiceDaoImpl implements ConsumoService {
     }
 
 	private List<Consumo> search(
-            Utenza utenza,
-            Consumo.Anno anno,
-            Consumo.Mese mese) {
-	    if (utenza == null && anno==null && mese == null) {
-	        return repository.findAll();
-        }
-        if (utenza == null && anno==null ) {
-            return repository.findByMese(mese);
-        }
-        if (utenza == null &&  mese == null) {
-            return repository.findByAnno(anno);
-        }
-        if (anno==null && mese == null) {
-            return repository.findByUtenza(utenza);
-        }
+            Utenza utenza) {
         if (utenza == null ) {
-            return repository.findByAnnoAndMese(anno,mese);
+            return repository.findAll();
         }
-        if (anno == null) {
-            return repository.findByMeseAndUtenza(mese,utenza);
-        }
-        if (mese == null) {
-            return repository.findByAnnoAndUtenza(anno,utenza);
-        }
-        return repository.findByAnnoAndMeseAndUtenza(anno,mese,utenza);
+        return repository.findByUtenza(utenza);
 
 	}
 
 	@Override
 	public List<Consumo> searchBy(
-			Utenza utenza,
-            Consumo.Anno anno,
-            Consumo.Mese mese
+			Utenza utenza
      		) {
-
-        return search(utenza,anno,mese);
+        return search(utenza);
     }
 
 	

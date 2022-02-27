@@ -13,6 +13,7 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import it.arsinfo.pago.ui.armatore.ArmatoreView;
+import it.arsinfo.pago.ui.consumo.ConsumoView;
 import it.arsinfo.pago.ui.terms.PolicyView;
 import it.arsinfo.pago.ui.terms.TermsView;
 
@@ -26,6 +27,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
     private final RouterLink privacyLink = new RouterLink("Privacy Policy", PolicyView.class);
 
     private final RouterLink armatoriLink = new RouterLink("Armatori", ArmatoreView.class);
+    private final RouterLink consumoLink = new RouterLink("Consumi", ConsumoView.class);
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
@@ -33,6 +35,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
         if (first) {
             createHeader();
             menu.add(homeLink);
+            menu.add(consumoLink);
             menu.add(armatoriLink);
             menu.add(termsLink);
             menu.add(privacyLink);
@@ -41,6 +44,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             termsLink.setHighlightCondition(HighlightConditions.sameLocation());
             privacyLink.setHighlightCondition(HighlightConditions.sameLocation());
 
+            consumoLink.setHighlightCondition(HighlightConditions.sameLocation());
             armatoriLink.setHighlightCondition(HighlightConditions.sameLocation());
             addToDrawer(menu);
             first=false;

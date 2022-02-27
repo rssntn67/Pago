@@ -68,17 +68,6 @@ public class UtenzaModello implements PagoEntity {
         this.costoUnitario = costo;
     }
 
-
-    @Transient
-    public String getCaption() {
-        return String.format("%s, %s. EUR:%f.", nome, tipo, costoUnitario);
-    }
-
-    @Transient
-    public String getHeader() {
-        return String.format("'%s'", nome);
-    }
-
     public String getDescrizione() {
         return descrizione;
     }
