@@ -1,5 +1,6 @@
 package it.arsinfo.pago.service.impl;
 
+import it.arsinfo.pago.dao.ArmatoreDao;
 import it.arsinfo.pago.dao.RicaricaDao;
 import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.Ricarica;
@@ -19,6 +20,9 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
 
     @Autowired
     private RicaricaDao repository;
+
+    @Autowired
+    private ArmatoreDao armatoreDao;
 
 	@Override
 	public Ricarica save(Ricarica entity) {
@@ -95,5 +99,10 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
         return search(importo,dataPagamento,committente);
     }
 
-	
+    @Override
+    public List<Armatore> findArmatori() {
+        return armatoreDao.findAll();
+    }
+
+
 }

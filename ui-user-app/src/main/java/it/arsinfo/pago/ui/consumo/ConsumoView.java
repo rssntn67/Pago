@@ -6,7 +6,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import it.arsinfo.pago.EuroConverter;
 import it.arsinfo.pago.entity.Consumo;
-import it.arsinfo.pago.service.api.PagoServiceBase;
+import it.arsinfo.pago.service.api.PagoService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityGridView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
 @PageTitle("Armatori | Pago App")
 public class ConsumoView extends EntityGridView<Consumo> {
 
-    public ConsumoView(@Autowired PagoServiceBase<Consumo> service) {
+    public ConsumoView(@Autowired PagoService<Consumo> service) {
         super(service);
     }
 

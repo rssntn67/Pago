@@ -6,16 +6,16 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import it.arsinfo.pago.entity.PagoEntity;
-import it.arsinfo.pago.service.api.PagoServiceBase;
+import it.arsinfo.pago.service.api.PagoService;
 
 import java.util.List;
 
 public abstract class EntityGridView<T extends PagoEntity> extends VerticalLayout {
     private Grid<T> grid;
 
-    private final PagoServiceBase<T> service;
+    private final PagoService<T> service;
 
-    public EntityGridView(PagoServiceBase<T> service) {
+    public EntityGridView(PagoService<T> service) {
         this.service=service;
     }
 

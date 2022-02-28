@@ -1,6 +1,17 @@
 package it.arsinfo.pago.service.api;
 
-public interface PagoService {
+import java.util.List;
 
+import it.arsinfo.pago.entity.PagoEntity;
+
+
+public interface PagoService<S extends PagoEntity> {
+	
+	S save(S entity);
+	void delete(S entity);
+	S findById(Long id);
+	List<S> findAll();
+	List<S> searchByDefault();
+	S add();
 
 }

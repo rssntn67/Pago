@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public interface ArmatoreService extends PagoServiceBase<Armatore> {
+public interface ArmatoreService extends PagoService<Armatore> {
 
 	List<Armatore> searchBy(
 			String searchNome,

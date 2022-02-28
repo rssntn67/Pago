@@ -6,7 +6,7 @@ import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.entity.Utenza;
 import it.arsinfo.pago.entity.Modello;
 
-public interface UtenzaService extends PagoServiceBase<Utenza> {
+public interface UtenzaService extends PagoService<Utenza> {
 	
 	List<Utenza> searchBy(String nome, Modello tipo);
 

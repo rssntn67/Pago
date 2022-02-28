@@ -5,7 +5,7 @@ import it.arsinfo.pago.entity.Modello;
 import java.util.List;
 
 
-public interface ModelloService extends PagoServiceBase<Modello> {
+public interface ModelloService extends PagoService<Modello> {
 	
 	List<Modello> searchBy(String nome, Modello.TipoConsumo tipo);
 }

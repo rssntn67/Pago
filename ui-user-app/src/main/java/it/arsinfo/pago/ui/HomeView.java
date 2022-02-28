@@ -1,9 +1,12 @@
 package it.arsinfo.pago.ui;
 
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import it.arsinfo.pago.entity.Ricarica;
+import it.arsinfo.pago.service.api.PagoService;
+import it.arsinfo.pago.ui.entity.EntityView;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
@@ -21,10 +24,14 @@ import javax.annotation.PostConstruct;
  */
 
 @Route(value="", layout = MainLayout.class)
-@PageTitle("Home | ADP Portale")
-public class HomeView extends VerticalLayout  {
+@PageTitle("Ricarica | ADP Portale")
+public class HomeView extends EntityView<Ricarica> {
 
     private final Div content = new Div();
+
+    public HomeView(@Autowired PagoService<Ricarica> service) {
+        super(service);
+    }
 
 
     @PostConstruct

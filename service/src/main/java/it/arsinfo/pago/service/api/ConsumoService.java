@@ -5,7 +5,7 @@ import java.util.List;
 import it.arsinfo.pago.entity.Consumo;
 import it.arsinfo.pago.entity.Utenza;
 
-public interface ConsumoService extends PagoServiceBase<Consumo> {
+public interface ConsumoService extends PagoService<Consumo> {
 	List<Consumo> searchBy(Utenza p);
 
 }

@@ -5,14 +5,14 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import it.arsinfo.pago.entity.PagoEntity;
-import it.arsinfo.pago.service.api.PagoServiceBase;
+import it.arsinfo.pago.service.api.PagoService;
 
 public abstract class EntityView<T extends PagoEntity> extends EntityGridView<T> {
     private EntityForm<T> form;
 
-    private final PagoServiceBase<T> service;
+    private final PagoService<T> service;
 
-    public EntityView(PagoServiceBase<T> service) {
+    public EntityView(PagoService<T> service) {
         super(service);
         this.service=service;
     }
