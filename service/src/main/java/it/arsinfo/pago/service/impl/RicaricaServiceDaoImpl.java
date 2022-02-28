@@ -26,12 +26,19 @@ public class RicaricaServiceDaoImpl implements RicaricaService {
 
 	@Override
 	public Ricarica save(Ricarica entity) {
-		return repository.save(entity);
+		if (entity.getId() == null) {
+		    Ricarica saved=repository.save(entity);
+		    Armatore committente=saved.getCommittente();
+		    committente.setCreditoResiduo(committente.getCreditoResiduo().add(saved.getImporto()));
+		    armatoreDao.save(committente);
+            return saved;
+        }
+		return entity;
 	}
 
 	@Override
 	public void delete(Ricarica entity) {
-		repository.delete(entity);
+
 	}
 
 	@Override

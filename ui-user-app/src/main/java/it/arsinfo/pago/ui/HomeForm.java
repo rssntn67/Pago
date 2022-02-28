@@ -23,6 +23,7 @@ public class HomeForm extends EntityForm<Ricarica> {
         committente.setItemLabelGenerator(Armatore::getCaption);
 
         DateTimePicker dataPagamento=new DateTimePicker("Data Pagamento");
+        dataPagamento.setReadOnly(true);
 
         binder.forField(importo).withConverter(new EuroConverter("Errore nella conversione in Euro")).bind(Ricarica::getImporto,Ricarica::setImporto);
         binder.forField(committente).bind(Ricarica::getCommittente,Ricarica::setCommittente);

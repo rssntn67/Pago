@@ -6,17 +6,12 @@ import java.math.BigDecimal;
 @Entity
 public class Armatore implements PagoEntity {
 
-    public static String generaIntestazione(Armatore a) {
-        return String.format("%s %s",
-                a.getImbarcazione(),a.getNome());
-    }
-
     public static String generaCaption(Armatore a) {
-        return String.format("'%s %s %s %s'",
+        return String.format("'%s': '%s %s'",
                 a.getImbarcazione(),
                 a.getNome(),
-                a.getCitta(),
-                a.getCap());
+                a.getCognome()
+        );
     }
 
     @Id
@@ -173,16 +168,6 @@ public class Armatore implements PagoEntity {
     @Transient
     public String getCaption() {
     	return Armatore.generaCaption(this);
-    }
-
-    @Transient
-    public String getIntestazione() {
-    	return Armatore.generaIntestazione(this);
-    }
-
-    @Transient
-    public String getHeader() {
-    	return generaIntestazione(this);
     }
 
     public enum Paese {
