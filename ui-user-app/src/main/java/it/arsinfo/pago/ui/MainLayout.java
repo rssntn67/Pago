@@ -24,7 +24,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
 
     private boolean first=true;
 
-    private final RouterLink homeLink = new RouterLink("Home",HomeView.class);
+    private final RouterLink homeLink = new RouterLink("Ricarica",HomeView.class);
     private final RouterLink termsLink = new RouterLink("Termini e Condizioni di Vendita", TermsView.class);
     private final RouterLink privacyLink = new RouterLink("Privacy Policy", PolicyView.class);
 

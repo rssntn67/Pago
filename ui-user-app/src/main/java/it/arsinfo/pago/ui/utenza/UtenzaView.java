@@ -28,8 +28,8 @@ public class UtenzaView extends EntityView<Utenza> {
         super.init(new Grid<>(Utenza.class), new UtenzaForm(new BeanValidationBinder<>(Utenza.class),service.findModelli(),service.findUtenza()));
         configureGrid( "identificativo", "modello.tipo.unit","active");
         getGrid().addColumn(utenza -> {
-            if (utenza.getUtente() == null) return "no";
-            else return utenza.getUtente().getImbarcazione();
+            if (utenza.getUtente() == null) return "nessuna utenza";
+            else return utenza.getUtente().getCaption();
         }).setHeader("Utente");
         getForm().addListener(UtenzaForm.SaveEvent.class, e -> {
             try {

@@ -48,7 +48,12 @@ public class UtenzaForm extends EntityForm<Utenza> {
             }
 
         });
-        getDelete().setEnabled(false);
+        getDelete().addClickListener(event -> {
+            if (validate()) {
+                fireEvent(new DeleteEvent(this,getEntity()));
+            }
+
+        });
         getClose().addClickListener(event -> fireEvent(new CloseEvent(this)));
     }
 
