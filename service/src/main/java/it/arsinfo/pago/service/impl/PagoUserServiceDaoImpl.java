@@ -63,4 +63,9 @@ public class PagoUserServiceDaoImpl implements PagoUserService {
         return repository.findByUsernameContainingIgnoreCaseAndRole(searchText, role);
 	}
 
+	@Override
+	public PagoUser findByUsernameAndProvider(String admin, PagoUser.Provider local) {
+		return repository.findByUsernameAndProvider(admin,local);
+	}
+
 }

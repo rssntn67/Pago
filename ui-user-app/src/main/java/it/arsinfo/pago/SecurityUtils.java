@@ -2,9 +2,9 @@ package it.arsinfo.pago;
 
 import it.arsinfo.pago.dao.PagoUserDao;
 import it.arsinfo.pago.entity.PagoUser;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.context.SecurityContext;
+//import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * SecurityUtils takes care of all such static operations that have to do with
@@ -26,9 +26,10 @@ public class SecurityUtils {
 	 *         user has not signed in
 	 */
 	public static String getUsername() {
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		return userDetails.getUsername();
+		//SecurityContext context = SecurityContextHolder.getContext();
+		//UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		//return userDetails.getUsername();
+		return "admin";
 	}
 
 	/**
