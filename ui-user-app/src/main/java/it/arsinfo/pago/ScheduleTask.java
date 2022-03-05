@@ -14,7 +14,7 @@ public class ScheduleTask {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
 
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 600000)
     public void downloadConsumi() {
         log.info("downloadConsumi; Fixed Delay Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
     }

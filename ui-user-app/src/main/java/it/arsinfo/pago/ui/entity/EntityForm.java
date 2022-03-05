@@ -10,9 +10,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
-import it.arsinfo.pago.entity.PagoEntity;
+import it.arsinfo.pago.entity.Pago;
 
-public class EntityForm<T extends PagoEntity> extends FormLayout {
+public class EntityForm<T extends Pago> extends FormLayout {
     private final Binder<T> binder;
     private T entity;
 
@@ -45,6 +45,10 @@ public class EntityForm<T extends PagoEntity> extends FormLayout {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void layout() {
+
     }
 
     public void setEntity(T entity) {
@@ -80,8 +84,8 @@ public class EntityForm<T extends PagoEntity> extends FormLayout {
         getDelete().setEnabled(!readonly);
     }
 
-    public void isNew() {
-
+    public boolean isNew() {
+        return entity.getId() == null;
     }
 
 }

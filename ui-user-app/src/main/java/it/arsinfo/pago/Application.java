@@ -21,6 +21,8 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.TimeZone;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
 @EnableScheduling
@@ -34,6 +36,9 @@ public class Application extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
 
 
     @Bean

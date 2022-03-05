@@ -4,10 +4,10 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
-import it.arsinfo.pago.entity.PagoEntity;
+import it.arsinfo.pago.entity.Pago;
 import it.arsinfo.pago.service.api.PagoService;
 
-public abstract class EntityView<T extends PagoEntity> extends EntityGridView<T> {
+public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
     private EntityForm<T> form;
 
     private final PagoService<T> service;
@@ -49,6 +49,7 @@ public abstract class EntityView<T extends PagoEntity> extends EntityGridView<T>
             closeEditor();
         } else {
             form.setEntity(entity);
+            form.layout();
             form.setVisible(true);
             getGrid().setVisible(false);
             addClassName("editing");
@@ -67,7 +68,6 @@ public abstract class EntityView<T extends PagoEntity> extends EntityGridView<T>
         Button addButton = new Button("Add");
         addButton.addClickListener(click -> add());
         return addButton;
-
     }
 
     public void configureGrid(String...columns) {

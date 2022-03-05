@@ -7,7 +7,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Ricarica implements PagoEntity {
+public class Ricarica implements Pago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

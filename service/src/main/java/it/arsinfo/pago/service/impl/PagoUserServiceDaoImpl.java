@@ -1,9 +1,9 @@
 package it.arsinfo.pago.service.impl;
 
-import it.arsinfo.pago.dao.UserInfoDao;
-import it.arsinfo.pago.entity.UserInfo;
-import it.arsinfo.pago.entity.UserInfo.Role;
-import it.arsinfo.pago.service.api.UserInfoService;
+import it.arsinfo.pago.dao.PagoUserDao;
+import it.arsinfo.pago.entity.PagoUser;
+import it.arsinfo.pago.entity.PagoUser.Role;
+import it.arsinfo.pago.service.api.PagoUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,46 +11,46 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 @Service
-public class UserInfoServiceDaoImpl implements UserInfoService {
+public class PagoUserServiceDaoImpl implements PagoUserService {
 
     @Autowired
-    private UserInfoDao repository;
+    private PagoUserDao repository;
 
 	@Override
-	public UserInfo save(UserInfo entity) {
-		UserInfo saved;
+	public PagoUser save(PagoUser entity) {
+		PagoUser saved;
 		saved = repository.save(entity);
 		return saved;
 	}
 
 	@Override
-	public void delete(UserInfo entity) {
+	public void delete(PagoUser entity) {
 		if (entity.getUsername().equals("admin"))
 			return;
 		repository.delete(entity);
 	}
 
 	@Override
-	public UserInfo findById(Long id) {
+	public PagoUser findById(Long id) {
 		return repository.findById(id).orElse(null);
 	}
 
 	@Override
-	public List<UserInfo> findAll() {
+	public List<PagoUser> findAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public List<UserInfo> searchByDefault() {
+	public List<PagoUser> searchByDefault() {
 		return repository.findAll();
 	}
 
 	@Override
-	public UserInfo add() {
-		return new UserInfo();
+	public PagoUser add() {
+		return new PagoUser();
 	}
 
-	public List<UserInfo> searchBy(String searchText, Role role) {
+	public List<PagoUser> searchBy(String searchText, Role role) {
         if (!StringUtils.hasLength(searchText) && role == null) {
             return findAll();
         }

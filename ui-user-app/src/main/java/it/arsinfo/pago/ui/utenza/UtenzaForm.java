@@ -14,10 +14,10 @@ import java.util.List;
 
 public class UtenzaForm extends EntityForm<Utenza> {
 
+    private final TextField identificativo = new TextField("Identificativo");
     public UtenzaForm(Binder<Utenza> binder, List<Modello> modelli, List<Armatore> utenti) {
         super (binder);
 
-        TextField identificativo = new TextField("Identificativo");
         Checkbox active = new Checkbox("Active");
 
         ComboBox<Modello> modello = new ComboBox<>("Modello");
@@ -55,6 +55,11 @@ public class UtenzaForm extends EntityForm<Utenza> {
 
         });
         getClose().addClickListener(event -> fireEvent(new CloseEvent(this)));
+    }
+
+    @Override
+    public void layout() {
+        identificativo.setReadOnly(!isNew());
     }
 
     public static abstract class FormEvent extends ComponentEvent<UtenzaForm> {

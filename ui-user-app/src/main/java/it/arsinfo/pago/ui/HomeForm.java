@@ -14,11 +14,13 @@ import java.util.List;
 
 public class HomeForm extends EntityForm<Ricarica> {
 
+    private final ComboBox<Armatore> committente = new ComboBox<>("Armatore");
+    private final TextField importo = new TextField("Importo Ricarica");
+
     public HomeForm(Binder<Ricarica> binder, List<Armatore> committenti) {
         super(binder);
-        TextField importo = new TextField("Importo Ricarica");
 
-        ComboBox<Armatore> committente = new ComboBox<>("Armatore");
+
         committente.setItems(committenti);
         committente.setItemLabelGenerator(Armatore::getCaption);
 
@@ -44,6 +46,18 @@ public class HomeForm extends EntityForm<Ricarica> {
         getClose().addClickListener(event -> fireEvent(new HomeForm.CloseEvent(this)));
     }
 
+   @Override
+   public void layout() {
+        if (isNew()) {
+            getSave().setEnabled(true);
+            importo.setReadOnly(false);
+            committente.setReadOnly(false);
+        } else {
+            getSave().setEnabled(false);
+            importo.setReadOnly(true);
+            committente.setReadOnly(true);
+        }
+   }
     public static abstract class FormEvent extends ComponentEvent<HomeForm> {
         private final Ricarica t;
 

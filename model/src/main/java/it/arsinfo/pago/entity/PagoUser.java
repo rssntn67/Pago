@@ -1,5 +1,7 @@
 package it.arsinfo.pago.entity;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 import javax.persistence.*;
@@ -9,7 +11,7 @@ import javax.persistence.*;
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames = {"username","provider"})
 })
-public class UserInfo implements PagoEntity {
+public class PagoUser implements Pago {
 
     public static String[] getRoleNames() {
         return Arrays.stream(Role.values()).map(Enum::name).toArray(String[]::new);
@@ -26,14 +28,10 @@ public class UserInfo implements PagoEntity {
     public enum Role {
         ADMIN,
         USER,
-        LOCKED,
-        SUBSCRIBED,
-        UNSUBSCRIBED
+        LOCKED
     }
 
     public enum Provider {
-        FACEBOOK,
-        GOOGLE,
         LOCAL
     }
 
@@ -41,25 +39,28 @@ public class UserInfo implements PagoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable=false)
     private String passwordHash;
 
+    @Column(nullable=false)
     private String username;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(nullable=false)
+    private Role role=Role.USER;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable=false)
     private Provider provider=Provider.LOCAL;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date data = new Date();
+    @Basic
+    @Column(nullable=false)
+    private LocalDateTime data = LocalDateTime.now(ZoneId.of("Europe/Rome"));
 
-    public UserInfo() {
-        username = "user";
-        role = Role.USER;
+    public PagoUser() {
     }
 
-    public UserInfo(String name, String password, Role role) {
+    public PagoUser(String name, String password, Role role) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(password);
         Objects.requireNonNull(role);
@@ -101,11 +102,11 @@ public class UserInfo implements PagoEntity {
         this.username = username;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

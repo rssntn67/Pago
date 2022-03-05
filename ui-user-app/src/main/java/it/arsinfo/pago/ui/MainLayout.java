@@ -18,6 +18,7 @@ import it.arsinfo.pago.ui.modello.ModelloView;
 import it.arsinfo.pago.ui.terms.PolicyView;
 import it.arsinfo.pago.ui.terms.TermsView;
 import it.arsinfo.pago.ui.utenza.UtenzaView;
+import it.arsinfo.pago.ui.user.PagoUserView;
 
 @CssImport("./styles/shared-styles.css")
 public class MainLayout extends AppLayout implements BeforeEnterObserver {
@@ -32,6 +33,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
     private final RouterLink utenzeLink = new RouterLink("Utenze", UtenzaView.class);
     private final RouterLink modelliLink = new RouterLink("Modelli", ModelloView.class);
     private final RouterLink armatoriLink = new RouterLink("Armatori", ArmatoreView.class);
+    private final RouterLink usersLink = new RouterLink("Users", PagoUserView.class);
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
@@ -44,6 +46,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             menu.add(utenzeLink);
             menu.add(modelliLink);
             menu.add(armatoriLink);
+            menu.add(usersLink);
 
             menu.add(termsLink);
             menu.add(privacyLink);
@@ -54,6 +57,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             utenzeLink.setHighlightCondition(HighlightConditions.sameLocation());
             modelliLink.setHighlightCondition(HighlightConditions.sameLocation());
             armatoriLink.setHighlightCondition(HighlightConditions.sameLocation());
+            usersLink.setHighlightCondition(HighlightConditions.sameLocation());
 
             termsLink.setHighlightCondition(HighlightConditions.sameLocation());
             privacyLink.setHighlightCondition(HighlightConditions.sameLocation());

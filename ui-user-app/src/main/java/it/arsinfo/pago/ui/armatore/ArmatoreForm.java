@@ -20,6 +20,7 @@ public class ArmatoreForm extends EntityForm<Armatore> {
         TextField cognome = new TextField("Cognome");
         TextField imbarcazione = new TextField("Imbarcazione");
         TextField creditoResiduo = new TextField("Credito");
+        creditoResiduo.setReadOnly(true);
 
         TextField indirizzo = new TextField("Indirizzo");
         TextField citta = new TextField("Citta");
@@ -76,7 +77,7 @@ public class ArmatoreForm extends EntityForm<Armatore> {
             }
 
         });
-        getDelete().setEnabled(false);
+        getDelete().addClickListener(event -> fireEvent(new DeleteEvent(this,getEntity())));
         getClose().addClickListener(event -> fireEvent(new ArmatoreForm.CloseEvent(this)));
     }
 

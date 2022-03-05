@@ -7,7 +7,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Consumo implements PagoEntity {
+public class Consumo implements Pago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,6 +15,17 @@ public class Consumo implements PagoEntity {
 
     @ManyToOne(optional=false,fetch=FetchType.EAGER)
     private Utenza utenza;
+
+    @ManyToOne(optional=false,fetch=FetchType.EAGER)
+    private Armatore armatore;
+
+    public Armatore getArmatore() {
+        return armatore;
+    }
+
+    public void setArmatore(Armatore armatore) {
+        this.armatore = armatore;
+    }
 
     public Integer getConsumo() {
         return consumo;
@@ -81,14 +92,15 @@ public class Consumo implements PagoEntity {
 
     @Override
     public String toString() {
-        return String.format("Consumo[id=%d, '%s',da %s a %s -> consumo=%d %s, importo='%.2f']",
-                             id,
-                utenza.getIdentificativo(),
+        return String.format("Consumo[id=%d, '%s',da %s a %s %s-> consumo=%d %s, importo='%.2f']",
+                 id,
+                 utenza.getIdentificativo(),
                  fromDate.format(DateTimeFormatter.ISO_DATE_TIME),
                  toDate.format(DateTimeFormatter.ISO_DATE_TIME),
+                armatore.getCaption(),
                 consumo,
                 utenza.getModello().getTipo().getUnit(),
-                            importo);
+                importo);
     }
 
 }

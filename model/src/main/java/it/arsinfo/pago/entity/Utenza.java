@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"identificativo"})})
-public class Utenza implements PagoEntity {
+public class Utenza implements Pago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

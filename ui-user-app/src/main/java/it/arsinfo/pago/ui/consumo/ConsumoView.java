@@ -30,6 +30,7 @@ public class ConsumoView extends EntityGridView<Consumo> {
         getGrid().addColumn("consumo").setHeader("Consumo");
         getGrid().addColumn("utenza.modello.tipo.unit").setHeader("Unit");
         getGrid().addColumn(new NumberRenderer<>(Consumo::getImporto, EuroConverter.getEuroCurrency())).setHeader("Importo");
+        getGrid().addColumn(consumo -> consumo.getArmatore().getCaption()).setHeader("Armatore");
 
         add(
                 getContent(getGrid())

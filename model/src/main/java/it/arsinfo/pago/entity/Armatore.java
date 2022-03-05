@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class Armatore implements PagoEntity {
+public class Armatore implements Pago {
 
     public static String generaCaption(Armatore a) {
         return String.format("'%s': '%s %s'",
