@@ -6,21 +6,44 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import it.arsinfo.pago.entity.Pago;
 import it.arsinfo.pago.service.api.PagoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
-    private EntityForm<T> form;
 
-    private final PagoService<T> service;
+public abstract class EntityView<T extends Pago, K extends EntityForm<T>, S extends PagoService<T>> extends EntityGridView<T> {
+    private static final Logger log = LoggerFactory.getLogger(EntityView.class);
+    private final S service;
+    private K form;
+    private Grid<T> grid;
 
-    public EntityView(PagoService<T> service) {
+    public EntityView(S service) {
         super(service);
         this.service=service;
     }
 
-    public void init(Grid<T> grid, EntityForm<T> form) {
+    public void init(Grid<T> grid, K form) {
+        super.init(grid);
+        this.grid=grid;
         this.form=form;
         form.addClassName("form");
-        super.init(grid);
+        form.addListener(K.SaveEvent.class, e -> {
+            try {
+                log.info("save: {}", form.getEntity());
+                save(form.getEntity());
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        form.addListener(K.DeleteEvent.class, e -> {
+            try {
+                log.info("delete: {}", form.getEntity());
+                delete(form.getEntity());
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
+        form.addListener(K.CloseEvent.class, e -> closeEditor());
+
     }
 
     public Div getContent(Component...components) {
@@ -28,10 +51,6 @@ public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
         content.addClassName("content");
         content.setSizeFull();
         return content;
-    }
-
-    public EntityForm<T> getForm() {
-        return form;
     }
 
     public void save(T entity) throws Exception {
@@ -51,7 +70,7 @@ public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
             form.setEntity(entity);
             form.layout();
             form.setVisible(true);
-            getGrid().setVisible(false);
+            grid.setVisible(false);
             addClassName("editing");
         }
     }
@@ -60,8 +79,14 @@ public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
         form.setEntity(null);
         form.setVisible(false);
         removeClassName("editing");
-        getGrid().setVisible(true);
+        grid.setVisible(true);
         updateList();
+    }
+
+    public void configureGrid(String...columns) {
+        super.configureGrid(columns);
+        grid.asSingleSelect().addValueChangeListener(event ->
+                edit(event.getValue()));
     }
 
     public Button getAddButton() {
@@ -70,14 +95,8 @@ public abstract class EntityView<T extends Pago> extends EntityGridView<T> {
         return addButton;
     }
 
-    public void configureGrid(String...columns) {
-        super.configureGrid(columns);
-        getGrid().asSingleSelect().addValueChangeListener(event ->
-                edit(event.getValue()));
-    }
-
     void add() {
-        getGrid().asSingleSelect().clear();
+        grid.asSingleSelect().clear();
         edit(service.add());
     }
    }

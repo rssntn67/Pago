@@ -30,9 +30,11 @@ import javax.annotation.PostConstruct;
 
 @Route(value="", layout = MainLayout.class)
 @PageTitle("Ricarica | ADP Portale")
-public class HomeView extends EntityView<Ricarica> {
+public class HomeView extends EntityView<Ricarica,HomeForm,RicaricaService> {
 
     private final RicaricaService service;
+    private final HomeForm form = new HomeForm(new BeanValidationBinder<>(Ricarica.class));
+    private final Grid<Ricarica> grid = new Grid<>(Ricarica.class);
     public HomeView(@Autowired RicaricaService service) {
         super(service);
         this.service=service;
@@ -41,23 +43,17 @@ public class HomeView extends EntityView<Ricarica> {
 
     @PostConstruct
     public void init() {
-        super.init(new Grid<>(Ricarica.class), new HomeForm(new BeanValidationBinder<>(Ricarica.class), service.findArmatori()));
+        super.init(grid, form);
         configureGrid("dataPagamento");
-        getGrid().addColumn(ricarica -> ricarica.getCommittente().getCaption()).setHeader("Committente");
-        getGrid().addColumn(new NumberRenderer<>(Ricarica::getImporto, EuroConverter.getEuroCurrency())).setHeader("Importo");
+        grid.addColumn(ricarica -> ricarica.getCommittente().getCaption()).setHeader("Committente");
+        grid.addColumn(new NumberRenderer<>(Ricarica::getImporto, EuroConverter.getEuroCurrency())).setHeader("Importo");
 
-        getForm().addListener(HomeForm.SaveEvent.class, e -> {
-            try {
-                save(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(UtenzaForm.CloseEvent.class, e -> closeEditor());
+        form.getDelete().setEnabled(false);
+        form.load(service.findArmatori());
+
         HorizontalLayout toolbar = getToolBar();
         toolbar.add(getAddButton());
-        add(toolbar,getContent(getGrid(),getForm()));
-        updateList();
+        add(toolbar,getContent(grid,form));
         closeEditor();
 
     }

@@ -1,6 +1,5 @@
 package it.arsinfo.pago.ui.modello;
 
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -33,47 +32,5 @@ public class ModelloForm extends EntityForm<Modello> {
         add(nome);
         add(costoUnitario,tipo);
         add(descrizione);
-
-        getSave().addClickListener(event -> {
-            if (validate()) {
-                fireEvent(new SaveEvent(this,getEntity()));
-            }
-
-        });
-        getDelete().setEnabled(false);
-        getClose().addClickListener(event -> fireEvent(new CloseEvent(this)));
     }
-
-    public static abstract class FormEvent extends ComponentEvent<ModelloForm> {
-        private final Modello t;
-
-        protected FormEvent(ModelloForm source, Modello t) {
-            super(source, false);
-            this.t = t;
-        }
-
-        public Modello getEntity() {
-            return t;
-        }
-    }
-
-    public static class SaveEvent extends FormEvent {
-        SaveEvent(ModelloForm source, Modello t) {
-            super(source, t);
-        }
-    }
-
-    public static class DeleteEvent extends FormEvent {
-        DeleteEvent(ModelloForm source, Modello t) {
-            super(source, t);
-        }
-
-    }
-
-    public static class CloseEvent extends FormEvent {
-        CloseEvent(ModelloForm source) {
-            super(source,null);
-        }
-    }
-
 }

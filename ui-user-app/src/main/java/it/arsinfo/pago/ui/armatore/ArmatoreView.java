@@ -17,7 +17,10 @@ import javax.annotation.PostConstruct;
 
 @Route(value="pago/armatori", layout = MainLayout.class)
 @PageTitle("Armatori | Pago App")
-public class ArmatoreView extends EntityView<Armatore> {
+public class ArmatoreView extends EntityView<Armatore,ArmatoreForm,ArmatoreService> {
+
+    private final ArmatoreForm form = new ArmatoreForm(new BeanValidationBinder<>(Armatore.class));
+    private final Grid<Armatore> grid = new Grid<>(Armatore.class);
 
     public ArmatoreView(@Autowired ArmatoreService service) {
         super(service);
@@ -25,29 +28,12 @@ public class ArmatoreView extends EntityView<Armatore> {
 
     @PostConstruct
     public void init() {
-        super.init(new Grid<>(Armatore.class), new ArmatoreForm(new BeanValidationBinder<>(Armatore.class)));
+        super.init(grid, form);
         configureGrid("imbarcazione", "nome", "cognome");
-        getGrid().addColumn(new NumberRenderer<>(Armatore::getCreditoResiduo, EuroConverter.getEuroCurrency())).setHeader("Credito Residuo");
-        getForm().addListener(ArmatoreForm.SaveEvent.class, e -> {
-            try {
-                save(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(ArmatoreForm.DeleteEvent.class, e -> {
-            try {
-                delete(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(ArmatoreForm.CloseEvent.class, e -> closeEditor());
+        grid.addColumn(new NumberRenderer<>(Armatore::getCreditoResiduo, EuroConverter.getEuroCurrency())).setHeader("Credito Residuo");
         HorizontalLayout toolbar = getToolBar();
         toolbar.add(getAddButton());
-        add(toolbar,getContent(getGrid(),getForm()));
-        updateList();
+        add(toolbar,getContent(grid,form));
         closeEditor();
-
     }
 }

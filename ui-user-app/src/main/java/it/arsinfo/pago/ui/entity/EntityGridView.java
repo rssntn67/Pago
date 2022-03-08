@@ -58,8 +58,4 @@ public abstract class EntityGridView<T extends Pago> extends VerticalLayout {
         return service.findAll();
     }
 
-    public Grid<T> getGrid() {
-        return grid;
-    }
-
 }

@@ -1,6 +1,5 @@
 package it.arsinfo.pago.ui.armatore;
 
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -71,46 +70,6 @@ public class ArmatoreForm extends EntityForm<Armatore> {
         add(paese);
         add(email,telefono,cellulare,codfis,piva);
 
-        getSave().addClickListener(event -> {
-            if (validate()) {
-                fireEvent(new ArmatoreForm.SaveEvent(this,getEntity()));
-            }
-
-        });
-        getDelete().addClickListener(event -> fireEvent(new DeleteEvent(this,getEntity())));
-        getClose().addClickListener(event -> fireEvent(new ArmatoreForm.CloseEvent(this)));
-    }
-
-    public static abstract class FormEvent extends ComponentEvent<ArmatoreForm> {
-        private final Armatore t;
-
-        protected FormEvent(ArmatoreForm source, Armatore t) {
-            super(source, false);
-            this.t = t;
-        }
-
-        public Armatore getEntity() {
-            return t;
-        }
-    }
-
-    public static class SaveEvent extends FormEvent {
-        SaveEvent(ArmatoreForm source, Armatore t) {
-            super(source, t);
-        }
-    }
-
-    public static class DeleteEvent extends FormEvent {
-        DeleteEvent(ArmatoreForm source, Armatore t) {
-            super(source, t);
-        }
-
-    }
-
-    public static class CloseEvent extends FormEvent {
-        CloseEvent(ArmatoreForm source) {
-            super(source,null);
-        }
     }
 
 }

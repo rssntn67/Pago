@@ -17,37 +17,22 @@ import javax.annotation.PostConstruct;
 
 @Route(value="pago/modelli", layout = MainLayout.class)
 @PageTitle("Modelli | Pago App")
-public class ModelloView extends EntityView<Modello> {
+public class ModelloView extends EntityView<Modello,ModelloForm,ModelloService> {
 
+    private final ModelloForm form =new ModelloForm(new BeanValidationBinder<>(Modello.class));
+    private final Grid<Modello> grid = new Grid<>(Modello.class);
     public ModelloView(@Autowired ModelloService service) {
         super(service);
     }
 
     @PostConstruct
     public void init() {
-        super.init(new Grid<>(Modello.class), new ModelloForm(new BeanValidationBinder<>(Modello.class)));
+        super.init(grid, form);
         configureGrid( "nome", "tipo.unit");
-        getGrid().addColumn(new NumberRenderer<>(Modello::getCostoUnitario, EuroConverter.getEuroCurrency())).setHeader("Costo");
-        getForm().addListener(ModelloForm.SaveEvent.class, e -> {
-            try {
-                save(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(ModelloForm.DeleteEvent.class, e -> {
-            try {
-                delete(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(ModelloForm.CloseEvent.class, e -> closeEditor());
+        grid.addColumn(new NumberRenderer<>(Modello::getCostoUnitario, EuroConverter.getEuroCurrency())).setHeader("Costo");
         HorizontalLayout toolbar = getToolBar();
         toolbar.add(getAddButton());
-        add(toolbar,getContent(getGrid(),getForm()));
-        updateList();
+        add(toolbar,getContent(grid,form));
         closeEditor();
-
     }
 }

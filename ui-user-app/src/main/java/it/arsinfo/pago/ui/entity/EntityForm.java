@@ -12,17 +12,26 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 import it.arsinfo.pago.entity.Pago;
 
-public class EntityForm<T extends Pago> extends FormLayout {
+public abstract class EntityForm<T extends Pago>  extends FormLayout {
     private final Binder<T> binder;
     private T entity;
 
-   Button save = new Button("Save");
-   Button delete = new Button("Delete");
-   Button close = new Button("Indietro");
+   private final Button save = new Button("Save");
+   private final Button delete = new Button("Delete");
+   private final Button close = new Button("Indietro");
 
 
     public EntityForm(Binder<T> binder) {
         this.binder=binder;
+        save.addClickListener(event -> {
+            if (validate()) {
+                fireEvent(new EntityForm.SaveEvent(this));
+            }
+
+        });
+        delete.addClickListener(event -> fireEvent(new EntityForm.DeleteEvent(this)));
+        close.addClickListener(event -> fireEvent(new EntityForm.CloseEvent(this)));
+
     }
 
     public HorizontalLayout createButtonsLayout() {
@@ -87,5 +96,25 @@ public class EntityForm<T extends Pago> extends FormLayout {
     public boolean isNew() {
         return entity.getId() == null;
     }
+
+    public static class SaveEvent extends ComponentEvent<EntityForm> {
+        protected SaveEvent(EntityForm source) {
+            super(source, false);
+        }
+    }
+
+    public static class DeleteEvent extends ComponentEvent<EntityForm> {
+        protected DeleteEvent(EntityForm source) {
+            super(source, false);
+        }
+    }
+
+    public static class CloseEvent extends ComponentEvent<EntityForm> {
+        protected CloseEvent(EntityForm source) {
+            super(source, false);
+        }
+    }
+
+
 
 }

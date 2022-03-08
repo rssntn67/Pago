@@ -1,6 +1,5 @@
 package it.arsinfo.pago.ui;
 
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,11 +16,10 @@ public class HomeForm extends EntityForm<Ricarica> {
     private final ComboBox<Armatore> committente = new ComboBox<>("Armatore");
     private final TextField importo = new TextField("Importo Ricarica");
 
-    public HomeForm(Binder<Ricarica> binder, List<Armatore> committenti) {
+    public HomeForm(Binder<Ricarica> binder) {
         super(binder);
 
 
-        committente.setItems(committenti);
         committente.setItemLabelGenerator(Armatore::getCaption);
 
         DateTimePicker dataPagamento=new DateTimePicker("Data Pagamento");
@@ -35,17 +33,11 @@ public class HomeForm extends EntityForm<Ricarica> {
         add(committente);
         add(importo);
         add(dataPagamento);
-
-        getSave().addClickListener(event -> {
-            if (validate()) {
-                fireEvent(new HomeForm.SaveEvent(this,getEntity()));
-            }
-
-        });
-        getDelete().setEnabled(false);
-        getClose().addClickListener(event -> fireEvent(new HomeForm.CloseEvent(this)));
     }
 
+    public void load(List<Armatore> committenti) {
+        committente.setItems(committenti);
+    }
    @Override
    public void layout() {
         if (isNew()) {
@@ -58,32 +50,6 @@ public class HomeForm extends EntityForm<Ricarica> {
             committente.setReadOnly(true);
         }
    }
-    public static abstract class FormEvent extends ComponentEvent<HomeForm> {
-        private final Ricarica t;
-
-        protected FormEvent(HomeForm source, Ricarica t) {
-            super(source, false);
-            this.t = t;
-        }
-
-        public Ricarica getEntity() {
-            return t;
-        }
-    }
-
-    public static class SaveEvent extends HomeForm.FormEvent {
-        SaveEvent(HomeForm source, Ricarica t) {
-            super(source, t);
-        }
-    }
-
-    public static class CloseEvent extends HomeForm.FormEvent {
-        CloseEvent(HomeForm source) {
-            super(source,null);
-        }
-    }
-
-
 
     @Override
     public boolean validate() {

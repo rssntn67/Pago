@@ -16,10 +16,12 @@ import javax.annotation.PostConstruct;
 
 @Route(value="pago/user", layout = MainLayout.class)
 @PageTitle("User | Pago App")
-public class PagoUserView extends EntityView<PagoUser> {
+public class PagoUserView extends EntityView<PagoUser,PagoUserForm,PagoUserService> {
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
+    private final PagoUserForm form = new PagoUserForm(new BeanValidationBinder<>(PagoUser.class));
+    private final Grid<PagoUser> grid= new Grid<>(PagoUser.class);
 
     public PagoUserView(@Autowired PagoUserService service) {
         super(service);
@@ -30,28 +32,12 @@ public class PagoUserView extends EntityView<PagoUser> {
     @PostConstruct
     public void init() {
 //        super.init(new Grid<>(PagoUser.class), new PagoUserForm(new BeanValidationBinder<>(PagoUser.class),passwordEncoder));
-        super.init(new Grid<>(PagoUser.class), new PagoUserForm(new BeanValidationBinder<>(PagoUser.class)));
+        super.init(grid,form);
         configureGrid( "username", "role","provider","data");
 
-        getForm().addListener(PagoUserForm.SaveEvent.class, e -> {
-            try {
-                save(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(PagoUserForm.DeleteEvent.class, e -> {
-            try {
-                delete(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(PagoUserForm.CloseEvent.class, e -> closeEditor());
         HorizontalLayout toolbar = getToolBar();
         toolbar.add(getAddButton());
-        add(toolbar,getContent(getGrid(),getForm()));
-        updateList();
+        add(toolbar,getContent(grid,form));
         closeEditor();
 
     }

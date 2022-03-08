@@ -15,9 +15,11 @@ import javax.annotation.PostConstruct;
 
 @Route(value="pago/utenze", layout = MainLayout.class)
 @PageTitle("Utenze | Pago App")
-public class UtenzaView extends EntityView<Utenza> {
+public class UtenzaView extends EntityView<Utenza,UtenzaForm,UtenzaService> {
 
-    final private UtenzaService service;
+    private final UtenzaService service;
+    private final UtenzaForm form= new UtenzaForm(new BeanValidationBinder<>(Utenza.class));
+    private final Grid<Utenza> grid = new Grid<>(Utenza.class);
     public UtenzaView(@Autowired UtenzaService service) {
         super(service);
         this.service=service;
@@ -25,31 +27,16 @@ public class UtenzaView extends EntityView<Utenza> {
 
     @PostConstruct
     public void init() {
-        super.init(new Grid<>(Utenza.class), new UtenzaForm(new BeanValidationBinder<>(Utenza.class),service.findModelli(),service.findUtenza()));
+        super.init(grid,form);
         configureGrid( "identificativo", "modello.tipo.unit","active");
-        getGrid().addColumn(utenza -> {
+        grid.addColumn(utenza -> {
             if (utenza.getUtente() == null) return "nessuna utenza";
             else return utenza.getUtente().getCaption();
         }).setHeader("Utente");
-        getForm().addListener(UtenzaForm.SaveEvent.class, e -> {
-            try {
-                save(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(UtenzaForm.DeleteEvent.class, e -> {
-            try {
-                delete(e.getEntity());
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-        getForm().addListener(UtenzaForm.CloseEvent.class, e -> closeEditor());
         HorizontalLayout toolbar = getToolBar();
         toolbar.add(getAddButton());
-        add(toolbar,getContent(getGrid(),getForm()));
-        updateList();
+        form.load(service.findModelli(),service.findUtenza());
+        add(toolbar,getContent(grid,form));
         closeEditor();
     }
 }

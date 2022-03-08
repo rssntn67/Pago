@@ -17,23 +17,24 @@ import javax.annotation.PostConstruct;
 @PageTitle("Armatori | Pago App")
 public class ConsumoView extends EntityGridView<Consumo> {
 
+    private final Grid<Consumo> grid = new Grid<>(Consumo.class);
     public ConsumoView(@Autowired PagoService<Consumo> service) {
         super(service);
     }
 
     @PostConstruct
     public void init() {
-        super.init(new Grid<>(Consumo.class));
+        super.init(grid);
         configureGrid("utenza.identificativo");
-        getGrid().addColumn("fromDate").setHeader("Da");
-        getGrid().addColumn("toDate").setHeader("A");
-        getGrid().addColumn("consumo").setHeader("Consumo");
-        getGrid().addColumn("utenza.modello.tipo.unit").setHeader("Unit");
-        getGrid().addColumn(new NumberRenderer<>(Consumo::getImporto, EuroConverter.getEuroCurrency())).setHeader("Importo");
-        getGrid().addColumn(consumo -> consumo.getArmatore().getCaption()).setHeader("Armatore");
+        grid.addColumn("fromDate").setHeader("Da");
+        grid.addColumn("toDate").setHeader("A");
+        grid.addColumn("consumo").setHeader("Consumo");
+        grid.addColumn("utenza.modello.tipo.unit").setHeader("Unit");
+        grid.addColumn(new NumberRenderer<>(Consumo::getImporto, EuroConverter.getEuroCurrency())).setHeader("Importo");
+        grid.addColumn(consumo -> consumo.getArmatore().getCaption()).setHeader("Armatore");
 
         add(
-                getContent(getGrid())
+                getContent(grid)
         );
 
         updateList();

@@ -12,6 +12,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.PWA;
 import it.arsinfo.pago.ui.armatore.ArmatoreView;
 import it.arsinfo.pago.ui.consumo.ConsumoView;
 import it.arsinfo.pago.ui.modello.ModelloView;
@@ -21,6 +22,7 @@ import it.arsinfo.pago.ui.utenza.UtenzaView;
 import it.arsinfo.pago.ui.user.PagoUserView;
 
 @CssImport("./styles/shared-styles.css")
+@PWA(name = "Pago, Sistema di Ricarica", shortName = "Pago")
 public class MainLayout extends AppLayout implements BeforeEnterObserver {
 
     private boolean first=true;
