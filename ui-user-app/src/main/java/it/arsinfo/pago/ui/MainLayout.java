@@ -8,6 +8,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.dom.ElementFactory;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HighlightConditions;
@@ -85,7 +87,9 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
         div.setText("Benvenuto");
 
         // Spring maps the 'logout' url so we should ignore it
-
+        // simple link to the logout endpoint provided by Spring Security
+        Element logoutLink = ElementFactory.createAnchor("logout", "Logout");
+        div.getElement().appendChild(logoutLink);
         header.add(div);
         addToNavbar(header);
 
