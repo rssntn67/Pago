@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Pago</name>
+	<name>Pago::App</name>
 	<description>Simple app to Pago Recharge</description>
 
 	<organization>
