@@ -3,7 +3,7 @@ package it.arsinfo.pago.ui.modello;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import it.arsinfo.pago.EuroConverter;
+import it.arsinfo.pago.converter.EuroConverter;
 import it.arsinfo.pago.entity.Modello;
 import it.arsinfo.pago.ui.entity.EntityForm;
 

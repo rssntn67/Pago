@@ -1,4 +1,4 @@
-package it.arsinfo.pago;
+package it.arsinfo.pago.schedule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

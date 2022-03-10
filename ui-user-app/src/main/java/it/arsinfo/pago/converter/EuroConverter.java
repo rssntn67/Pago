@@ -1,4 +1,4 @@
-package it.arsinfo.pago;
+package it.arsinfo.pago.converter;
 
 import com.vaadin.flow.data.binder.Result;
 import com.vaadin.flow.data.binder.ValueContext;

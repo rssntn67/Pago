@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import it.arsinfo.pago.EuroConverter;
+import it.arsinfo.pago.converter.EuroConverter;
 import it.arsinfo.pago.entity.Consumo;
 import it.arsinfo.pago.service.api.PagoService;
 import it.arsinfo.pago.ui.MainLayout;

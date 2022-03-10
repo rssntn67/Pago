@@ -4,7 +4,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
-import it.arsinfo.pago.EuroConverter;
+import it.arsinfo.pago.converter.EuroConverter;
 import it.arsinfo.pago.entity.Armatore;
 import it.arsinfo.pago.ui.entity.EntityForm;
 

@@ -1,4 +1,4 @@
-package it.arsinfo.pago;
+package it.arsinfo.pago.security;
 
 import it.arsinfo.pago.dao.PagoUserDao;
 import it.arsinfo.pago.entity.PagoUser;
@@ -11,7 +11,8 @@ import it.arsinfo.pago.entity.PagoUser;
  * security and querying rights from different beans of the UI.
  *
  */
-public class SecurityUtils {
+public class
+SecurityUtils {
 
     private static final String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$";
 

@@ -6,7 +6,7 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.renderer.NumberRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import it.arsinfo.pago.EuroConverter;
+import it.arsinfo.pago.converter.EuroConverter;
 import it.arsinfo.pago.entity.Modello;
 import it.arsinfo.pago.service.api.ModelloService;
 import it.arsinfo.pago.ui.MainLayout;

@@ -8,7 +8,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.binder.ValueContext;
-import it.arsinfo.pago.SecurityUtils;
+import it.arsinfo.pago.security.SecurityUtils;
 import it.arsinfo.pago.entity.PagoUser;
 import it.arsinfo.pago.entity.PagoUser.Role;
 import it.arsinfo.pago.ui.entity.EntityForm;
