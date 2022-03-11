@@ -5,8 +5,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import it.arsinfo.pago.ui.MainLayout;
+import org.springframework.security.access.annotation.Secured;
 
-@Route(value="privacy-policy", layout = MainLayout.class)
+@Route(value="pago/privacy-policy", layout = MainLayout.class)
+@Secured("ROLE_User")
 @PageTitle("Privacy Policy Pago App")
 public class PolicyView extends VerticalLayout {
 

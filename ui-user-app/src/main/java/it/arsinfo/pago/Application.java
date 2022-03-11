@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,8 +37,8 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
+    @Bean
+    public PasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
 
 
     @Bean
@@ -46,21 +48,22 @@ public class Application extends SpringBootServletInitializer {
             ModelloService utenzaModelloService,
             PagoUserService pagoService,
             UtenzaService utenzaService,
-            RicaricaService ricaricaService//,
-//            PasswordEncoder passwordEncoder
+            RicaricaService ricaricaService,
+            PasswordEncoder passwordEncoder
     ) {
         return (args) -> {
 
+
             PagoUser administrator = pagoService.findByUsernameAndProvider("admin", PagoUser.Provider.LOCAL);
             if (administrator == null) {
-                administrator = new PagoUser("admin", "admin000!!!", PagoUser.Role.ADMIN);
+                administrator = new PagoUser("admin", passwordEncoder.encode("admin000!!!"), PagoUser.Role.ADMIN);
                 pagoService.save(administrator);
-                log.info("creato user admin/admin");
+                log.info("creato user admin/admin000!!!");
             }
 
             PagoUser pago = pagoService.findByUsernameAndProvider("pago", PagoUser.Provider.LOCAL);
             if (pago == null) {
-                pago = new PagoUser("pago", "pago111!!", PagoUser.Role.USER);
+                pago = new PagoUser("pago", passwordEncoder.encode("pago111!!"), PagoUser.Role.USER);
                 pagoService.save(pago);
                 log.info("creato user pago/pago111!!");
             }

@@ -12,11 +12,13 @@ import it.arsinfo.pago.service.api.ArmatoreService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.annotation.PostConstruct;
 
 @Route(value="pago/armatori", layout = MainLayout.class)
 @PageTitle("Armatori | Pago App")
+@Secured("ROLE_User")
 public class ArmatoreView extends EntityView<Armatore,ArmatoreForm,ArmatoreService> {
 
     private final ArmatoreForm form = new ArmatoreForm(new BeanValidationBinder<>(Armatore.class));

@@ -1,16 +1,15 @@
 package it.arsinfo.pago.security;
 
 import it.arsinfo.pago.ui.LoginView;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configures spring security, doing the following:
@@ -27,6 +26,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String LOGIN_FAILURE_URL = "/" + LoginView.ROUTE;
 	private static final String LOGIN_URL = "/" + LoginView.ROUTE;
 	private static final String LOGOUT_SUCCESS_URL = "/" + LoginView.ROUTE;
+
+	private final UserDetailsService userDetailsService;
+
+	private final PasswordEncoder passwordEncoder;
+
+	@Autowired
+	public SecurityConfiguration(UserDetailsService userDetailsService,
+						  PasswordEncoder passwordEncoder) {
+		this.userDetailsService = userDetailsService;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		super.configure(auth);
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+	}
 
 	/**
 	 * Require login to access internal pages and configure login form.
@@ -55,26 +71,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				// Configure logout
 				.and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-	}
-
-	@Bean
-	@Override
-	public UserDetailsService userDetailsService() {
-		// typical logged in user with some privileges
-		UserDetails normalUser =
-				User.withUsername("user")
-						.password("{noop}password")
-						.roles("User")
-						.build();
-
-		// admin user with all privileges
-		UserDetails adminUser =
-				User.withUsername("admin")
-						.password("{noop}password")
-						.roles("User", "Admin")
-						.build();
-
-		return new InMemoryUserDetailsManager(normalUser, adminUser);
 	}
 
 	/**

@@ -10,11 +10,13 @@ import it.arsinfo.pago.service.api.PagoUserService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 
-@Route(value="pago/user", layout = MainLayout.class)
+@Route(value="pago/admin/user", layout = MainLayout.class)
+@Secured("ROLE_Admin")
 @PageTitle("User | Pago App")
 public class PagoUserView extends EntityView<PagoUser,PagoUserForm,PagoUserService> {
 

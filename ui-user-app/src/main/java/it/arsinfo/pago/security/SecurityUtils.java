@@ -4,6 +4,8 @@ import com.vaadin.flow.server.ServletHelper;
 import com.vaadin.flow.shared.ApplicationConstants;
 import it.arsinfo.pago.dao.PagoUserDao;
 import it.arsinfo.pago.entity.PagoUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -15,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
-//import org.springframework.security.core.context.SecurityContext;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * SecurityUtils takes care of all such static operations that have to do with
@@ -27,7 +29,9 @@ import java.util.stream.Stream;
 public class
 SecurityUtils {
 
-    private static final String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$";
+	private static final Logger log = LoggerFactory.getLogger(SecurityUtils.class);
+
+	private static final String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,}$";
 
 	private SecurityUtils() {
 		// Util methods only
@@ -40,10 +44,9 @@ SecurityUtils {
 	 *         user has not signed in
 	 */
 	public static String getUsername() {
-		//SecurityContext context = SecurityContextHolder.getContext();
-		//UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		//return userDetails.getUsername();
-		return "admin";
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		return userDetails.getUsername();
 	}
 
 	/**
@@ -94,6 +97,7 @@ SecurityUtils {
 	 */
 	public static boolean isAccessGranted(Class<?> securedClass) {
 		// Allow if no roles are required.
+		log.info("isAccessGranted: {}", securedClass.getCanonicalName());
 		Secured secured = AnnotationUtils.findAnnotation(securedClass, Secured.class);
 		if (secured == null) {
 			return true;
@@ -101,7 +105,12 @@ SecurityUtils {
 
 		// lookup needed role in user roles
 		final List<String> allowedRoles = Arrays.asList(secured.value());
+		log.info("isAccessGranted: roles {}", allowedRoles);
 		final Authentication userAuthentication = SecurityContextHolder.getContext().getAuthentication();
+		userAuthentication.getAuthorities().stream().forEach(grantedAuthority -> log.info("isAccessGranted: granted {}",grantedAuthority.getAuthority()));
+		boolean result = userAuthentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(allowedRoles::contains);
+		log.info("isAccessGranted: {}", result);
 		return userAuthentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.anyMatch(allowedRoles::contains);
 	}

@@ -12,10 +12,12 @@ import it.arsinfo.pago.service.api.ModelloService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.annotation.PostConstruct;
 
 @Route(value="pago/modelli", layout = MainLayout.class)
+@Secured("ROLE_User")
 @PageTitle("Modelli | Pago App")
 public class ModelloView extends EntityView<Modello,ModelloForm,ModelloService> {
 

@@ -10,10 +10,12 @@ import it.arsinfo.pago.service.api.PagoService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityGridView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.annotation.PostConstruct;
 
 @Route(value="pago/consumi", layout = MainLayout.class)
+@Secured("ROLE_User")
 @PageTitle("Armatori | Pago App")
 public class ConsumoView extends EntityGridView<Consumo> {
 

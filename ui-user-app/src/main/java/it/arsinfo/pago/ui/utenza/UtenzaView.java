@@ -10,10 +10,12 @@ import it.arsinfo.pago.service.api.UtenzaService;
 import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.annotation.PostConstruct;
 
 @Route(value="pago/utenze", layout = MainLayout.class)
+@Secured("ROLE_User")
 @PageTitle("Utenze | Pago App")
 public class UtenzaView extends EntityView<Utenza,UtenzaForm,UtenzaService> {
 

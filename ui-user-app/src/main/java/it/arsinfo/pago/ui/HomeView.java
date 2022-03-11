@@ -11,6 +11,7 @@ import it.arsinfo.pago.entity.Ricarica;
 import it.arsinfo.pago.service.api.RicaricaService;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import javax.annotation.PostConstruct;
 
@@ -29,6 +30,7 @@ import javax.annotation.PostConstruct;
 
 @Route(value="", layout = MainLayout.class)
 @PageTitle("Ricarica | ADP Portale")
+@Secured("ROLE_User")
 public class HomeView extends EntityView<Ricarica,HomeForm,RicaricaService> {
 
     private final RicaricaService service;

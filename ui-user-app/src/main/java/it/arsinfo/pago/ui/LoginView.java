@@ -20,7 +20,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver  {
 		login.setAction("login");
 		login.setOpened(true);
 		login.setTitle("Autenticazione Pago");
-		login.setDescription("Login Overlay Example");
+		login.setDescription("Login");
 		getElement().appendChild(login.getElement());
 	}
 

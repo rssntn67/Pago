@@ -15,16 +15,22 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import it.arsinfo.pago.dao.PagoUserDao;
+import it.arsinfo.pago.entity.PagoUser;
+import it.arsinfo.pago.security.SecurityUtils;
 import it.arsinfo.pago.ui.armatore.ArmatoreView;
 import it.arsinfo.pago.ui.consumo.ConsumoView;
 import it.arsinfo.pago.ui.modello.ModelloView;
 import it.arsinfo.pago.ui.terms.PolicyView;
 import it.arsinfo.pago.ui.terms.TermsView;
-import it.arsinfo.pago.ui.utenza.UtenzaView;
 import it.arsinfo.pago.ui.user.PagoUserView;
+import it.arsinfo.pago.ui.utenza.UtenzaView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 @CssImport("./styles/shared-styles.css")
 @PWA(name = "Pago, Sistema di Ricarica", shortName = "Pago")
+@Secured("ROLE_User")
 public class MainLayout extends AppLayout implements BeforeEnterObserver {
 
     private boolean first=true;
@@ -39,6 +45,9 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
     private final RouterLink armatoriLink = new RouterLink("Armatori", ArmatoreView.class);
     private final RouterLink usersLink = new RouterLink("Users", PagoUserView.class);
 
+   @Autowired
+   private PagoUserDao pagouserdao;
+
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         VerticalLayout menu = new VerticalLayout();
@@ -50,7 +59,8 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             menu.add(utenzeLink);
             menu.add(modelliLink);
             menu.add(armatoriLink);
-            menu.add(usersLink);
+            if (SecurityUtils.getCurrentUser(pagouserdao).getRole() == PagoUser.Role.ADMIN)
+                menu.add(usersLink);
 
             menu.add(termsLink);
             menu.add(privacyLink);
@@ -61,7 +71,8 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
             utenzeLink.setHighlightCondition(HighlightConditions.sameLocation());
             modelliLink.setHighlightCondition(HighlightConditions.sameLocation());
             armatoriLink.setHighlightCondition(HighlightConditions.sameLocation());
-            usersLink.setHighlightCondition(HighlightConditions.sameLocation());
+            if (SecurityUtils.getCurrentUser(pagouserdao).getRole() == PagoUser.Role.ADMIN)
+                usersLink.setHighlightCondition(HighlightConditions.sameLocation());
 
             termsLink.setHighlightCondition(HighlightConditions.sameLocation());
             privacyLink.setHighlightCondition(HighlightConditions.sameLocation());
@@ -83,8 +94,9 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver {
         header.setWidth("50%");
         header.addClassName("header");
 
+        String userName = SecurityUtils.getUsername();
         Div div = new Div();
-        div.setText("Benvenuto");
+        div.setText("Benvenuto " + userName + " ");
 
         // Spring maps the 'logout' url so we should ignore it
         // simple link to the logout endpoint provided by Spring Security
