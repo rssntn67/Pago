@@ -11,7 +11,7 @@ import it.arsinfo.pago.ui.MainLayout;
 import it.arsinfo.pago.ui.entity.EntityView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 
@@ -20,20 +20,20 @@ import javax.annotation.PostConstruct;
 @PageTitle("User | Pago App")
 public class PagoUserView extends EntityView<PagoUser,PagoUserForm,PagoUserService> {
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-    private final PagoUserForm form = new PagoUserForm(new BeanValidationBinder<>(PagoUser.class));
+    private final PasswordEncoder passwordEncoder;
+
     private final Grid<PagoUser> grid= new Grid<>(PagoUser.class);
 
-    public PagoUserView(@Autowired PagoUserService service) {
+    public PagoUserView(@Autowired PagoUserService service, @Autowired PasswordEncoder passwordEncoder ) {
         super(service);
+        this.passwordEncoder=passwordEncoder;
     }
 
 
 
     @PostConstruct
     public void init() {
-//        super.init(new Grid<>(PagoUser.class), new PagoUserForm(new BeanValidationBinder<>(PagoUser.class),passwordEncoder));
+        final PagoUserForm form = new PagoUserForm(new BeanValidationBinder<>(PagoUser.class), passwordEncoder);
         super.init(grid,form);
         configureGrid( "username", "role","provider","data");
 

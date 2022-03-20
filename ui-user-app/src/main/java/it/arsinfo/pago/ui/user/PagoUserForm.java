@@ -8,10 +8,11 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.binder.ValueContext;
-import it.arsinfo.pago.security.SecurityUtils;
 import it.arsinfo.pago.entity.PagoUser;
 import it.arsinfo.pago.entity.PagoUser.Role;
+import it.arsinfo.pago.security.SecurityUtils;
 import it.arsinfo.pago.ui.entity.EntityForm;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.EnumSet;
 
@@ -21,8 +22,7 @@ public class PagoUserForm extends EntityForm<PagoUser> {
     private final TextField username = new TextField("username");
     private final PasswordField password = new PasswordField("password");
 
-//    public PagoUserForm(Binder<PagoUser> binder, PasswordEncoder passwordEncoder) {
-    public PagoUserForm(Binder<PagoUser> binder) {
+    public PagoUserForm(Binder<PagoUser> binder, PasswordEncoder passwordEncoder) {
     super(binder);
         ComboBox<PagoUser.Provider> provider = new ComboBox<>("Provider", EnumSet.allOf(PagoUser.Provider.class));
         provider.setReadOnly(true);
@@ -55,8 +55,7 @@ public class PagoUserForm extends EntityForm<PagoUser> {
                         bean -> "",
                         (bean, value) -> {
                             if (!value.isEmpty()) {
-//                                bean.setPasswordHash(passwordEncoder.encode(value));
-                                bean.setPasswordHash(value);
+                                bean.setPasswordHash(passwordEncoder.encode(value));
                             }
                         });
 
